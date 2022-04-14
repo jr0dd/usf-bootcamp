@@ -1,4 +1,4 @@
-function countDown (num) {
+function countDown(num) {
   const counter = setInterval(() => {
     if (num <= 0) {
       console.log('DONE')
@@ -9,7 +9,7 @@ function countDown (num) {
   }, 1000)
 }
 
-function randomGame () {
+function randomGame() {
   let num = 0
   let count = 0
   const counter = setInterval(() => {

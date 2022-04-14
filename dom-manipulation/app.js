@@ -41,7 +41,7 @@ ul.appendChild(li)
 // 11
 const olList = document.querySelectorAll('ol li')
 for (const li of olList) {
-    li.style.backgroundColor = 'green'
+  li.style.backgroundColor = 'green'
 }
 
 // 12
