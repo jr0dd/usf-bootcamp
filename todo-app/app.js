@@ -53,12 +53,11 @@ taskList.addEventListener('click', (event) => {
         }
       }
     }
-    
   } else {
     if (el.innerText === 'remove') {
       li.remove()
-      const index = tasks.findIndex(task => task.taskName === clicked)
-      tasks.splice(index,1)
+      const index = tasks.findIndex((task) => task.taskName === clicked)
+      tasks.splice(index, 1)
     }
   }
   localStorage.setItem('tasks', JSON.stringify(tasks))
