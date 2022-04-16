@@ -88,6 +88,13 @@ h1 {
   gap: 10px;
   margin: 5px;
   position: relative;
+  transform-style: preserve-3d;
+  transition: transform 1s;
+}
+
+#flipped,
+.matched {
+  transform: rotateY( 180deg );
 }
 
 img {
@@ -96,7 +103,8 @@ img {
   background-position: center;
   border-radius: 5px;
   background-size: cover;
-  visibility: hidden;
+  backface-visibility: hidden;
+  transform: rotateY( 180deg )
 }
 
 .card1 img {

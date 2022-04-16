@@ -67,41 +67,11 @@ button.addEventListener('click', startGame)
 
 // handle start of game
 function startGame() {
-  count = 0
-  score = 0
-  matches = cards.length / 2
-  scoreBox.innerText = `Score: ${score}`
-  const allImgs = document.querySelectorAll('img')
-  for (const img of allImgs) {
-    img.style.visibility = 'hidden'
-  }
-  const allCards = document.querySelectorAll('#game div')
-  for (const card of allCards) {
-    card.addEventListener('click', handleCardClick)
-  }
   button.removeEventListener('click', startGame)
   button.innerText = 'Restart'
   button.setAttribute('id', 'restart')
-  button.addEventListener('click', restartGame)
-}
-
-// handle restart of game
-function restartGame() {
-  count = 0
-  score = 0
-  matches = cards.length / 2
-  scoreBox.innerText = `Score: ${score}`
-  const allCards = document.querySelectorAll('#game div')
-  for (const card of allCards) {
-    card.classList.remove('matched')
-    card.removeAttribute('id')
-    card.addEventListener('click', handleCardClick)
-  }
-  const allImgs = document.querySelectorAll('img')
-  for (const img of allImgs) {
-    img.style.visibility = 'hidden'
-  }
-  return
+  button.addEventListener('click', resetBoard)
+  return resetBoard()
 }
 
 // handle end of game
@@ -112,13 +82,28 @@ function endGame() {
   } else {
     alert(`Good Job! Keep trying to beat the low score of ${topScore}!`)
   }
-  button.removeEventListener('click', restartGame)
+  button.removeEventListener('click', resetBoard)
   button.innerText = 'Start'
   button.setAttribute('id', 'start')
   button.addEventListener('click', startGame)
   const allCards = document.querySelectorAll('#game div')
   for (const card of allCards) {
     card.removeEventListener('click', handleCardClick)
+  }
+  return
+}
+
+// handle resetting of the board
+function resetBoard() {
+  count = 0
+  score = 0
+  matches = cards.length / 2
+  scoreBox.innerText = `Score: ${score}`
+  const allCards = document.querySelectorAll('#game div')
+  for (const card of allCards) {
+    card.classList.remove('matched')
+    card.removeAttribute('id')
+    card.addEventListener('click', handleCardClick)
   }
   return
 }
@@ -146,8 +131,6 @@ let matches = cards.length / 2
 function handleCardClick(event) {
   const lastPick = event.target
   const firstPick = document.querySelector('#flipped')
-  const lastImg = lastPick.querySelector('img')
-  const firstImg = document.querySelector('#flipped img')
   count++
 
     switch (count) {
@@ -165,20 +148,20 @@ function handleCardClick(event) {
     }
 
   function firstFlip() {
-    lastImg.style.visibility = 'visible'
     lastPick.setAttribute('id', 'flipped')
     lastPick.removeEventListener('click', handleCardClick)
   }
 
   function secondFlip() {
-    lastImg.style.visibility = 'visible'
+    lastPick.setAttribute('id', 'flipped')
     if (lastPick.className === firstPick.className) {
       matches--
       if (matches === 0) {
         return setTimeout(endGame, 300)
       }
-      console.log('matched!')
       lastPick.classList.add('matched')
+      lastPick.removeAttribute('id')
+      lastPick.removeEventListener('click', handleCardClick)
       firstPick.classList.add('matched')
       firstPick.removeAttribute('id')
       firstPick.removeEventListener('click', handleCardClick)
@@ -194,8 +177,7 @@ function handleCardClick(event) {
   }
 
   function resetFlip() {
-    lastImg.style.visibility = 'hidden'
-    firstImg.style.visibility = 'hidden'
+    lastPick.removeAttribute('id')
     firstPick.removeAttribute('id')
     firstPick.addEventListener('click', handleCardClick)
     return (count = 0)
