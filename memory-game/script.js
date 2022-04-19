@@ -64,6 +64,7 @@ function createDivsForCards(cardArray) {
 
 const button = document.getElementById('start')
 button.addEventListener('click', startGame)
+const h3 = document.querySelector('h3')
 
 // handle start of game
 function startGame() {
@@ -71,6 +72,7 @@ function startGame() {
   button.innerText = 'Restart'
   button.setAttribute('id', 'restart')
   button.addEventListener('click', resetBoard)
+  h3.innerText = 'Click squares to find matches!'
   return resetBoard()
 }
 
@@ -86,6 +88,7 @@ function endGame() {
   button.innerText = 'Start'
   button.setAttribute('id', 'start')
   button.addEventListener('click', startGame)
+  h3.innerText = 'Click start to begin!'
   const allCards = document.querySelectorAll('#game div')
   for (const card of allCards) {
     card.removeEventListener('click', handleCardClick)

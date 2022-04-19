@@ -16,12 +16,17 @@ body {
   background-color: rgb(37,47,63);
 }
 
-h1 {
+h1,
+h3 {
   text-align: center;
   letter-spacing: .1em;
 }
 
-.title {
+h3 {
+  font-weight: 400;
+}
+
+.score-board {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -29,15 +34,38 @@ h1 {
   align-items: baseline;
   height: 75px;
   width: 800px;
+  margin-bottom: 8px;
 }
 
-.title > * {
+.score-board > * {
   font-size: 18px;
   font-weight: 500;
-  width: 180px;
-  height: 75px;
   gap: 10px;
-  margin: 5px;
+  position: relative;
+}
+
+#score {
+  text-align:left;
+  padding-left: 15px;
+  flex: 2;
+}
+
+#top-score {
+  text-align: right;
+  padding-right: 15px;
+  flex: 2;
+}
+
+#start,
+#restart {
+  flex: 1;
+  border: rgb(229,231,235) solid 1px;
+  letter-spacing: 2px;
+  border-radius: 4px;
+  margin: 0 180px;
+  padding: 0 20px;
+  height: 40px;
+  color: rgb(16, 14, 14);
   position: relative;
 }
 
@@ -46,28 +74,27 @@ h1 {
   font-weight: 700;
 }
 
+#start:hover {
+  background-color: rgb(89, 193, 127);
+}
+
+#start:active {
+  background-color: rgb(52, 111, 74);
+  color: rgb(87, 84, 84);
+}
+
 #restart {
   background-color: rgb(251,113,133);
   font-weight: 700;
 }
 
-#score {
-  text-align:left;
+#restart:hover {
+  background-color: rgb(206, 93, 110);
 }
 
-#top-score {
-  text-align: right;
-}
-
-#start,
-#restart {
-  border: rgb(229,231,235) solid 1px;
-  box-shadow: 2px 2px 2px rgba(0,0,0,.3);
-  letter-spacing: .1em;
-  border-radius: 4px;
-  height: 50px;
-  width: 100px;
-  position: relative;
+#restart:active {
+  background-color: rgb(212, 72, 93);
+  color: rgb(87, 84, 84);
 }
 
 .container {
