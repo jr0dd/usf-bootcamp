@@ -1,0 +1,11 @@
+1.
+const PI = 3.14
+PI = 42
+
+2. var can be redeclared
+
+3. var can be redeclared and reassigned
+
+4. let can be reassigned
+
+5. variables are being used before being declared
