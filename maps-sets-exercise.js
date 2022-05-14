@@ -9,12 +9,10 @@ const hasDuplicate = (arr) => {
 }
 
 const vowelCount = (str) => {
-  const m = new Map()
-  const vowels = ['a', 'e', 'i', 'o', 'u']
-  for (const char of str) {
-    if (vowels.includes(char)) {
-      m.set(char, (m.get(char) || 0) + 1)
+  return [...str].reduce((map, char) => {
+    if ('aeiou'.includes(char)) {
+      map.set(char, (map.get(char) || 0) +1)
     }
-  }
-  return m
+    return map
+  }, new Map())
 }
