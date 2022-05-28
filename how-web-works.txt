@@ -1,0 +1,29 @@
+part 1
+1. hypertext transport protocol
+
+2. uniform resource locator
+
+3. domain name system
+
+4. a string parameter that follows the url ie. ?token=Wz6etH (key=value)
+
+5. GET requests data POST. sends some data.
+
+6. a request is sent using GET
+
+7. a response is the reply to the request
+
+8. request - 'Authorization: Bearer blahblah-apiKey' response - 'Content-Type'
+
+9. dns resolves the ip of somesite.com
+   GET request is sent to /some/page.html
+   the response is sent back to the client
+   the content is sent back to the client
+   browser generates the dom
+
+part 2
+1. none were sent back using pirate as the api returns a random dad joke
+
+2. 172.67.211.64
+
+3. python3 -m http.server --directory ../USF/projects/meme-generator
