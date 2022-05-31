@@ -4,8 +4,8 @@ $(() => {
 
     const imgUrl = await giphySearch($('#query').val())
 
-    // create gif
-    $('#gif-container').append(`
+    //create gif
+    $('#gif-container').prepend(`
       <div class="gif">
         <img src=${imgUrl}></img>
       </div>
@@ -21,13 +21,17 @@ $(() => {
 })
 
 const giphySearch = async (str) => {
-  const res = await axios.get("http://api.giphy.com/v1/gifs/search", {
-    params: {
-      q: str,
-      api_key: 'MhAodEJIJxQMxW9XqxKjyXfNYdLoOIym'
-    }
-  })
-  const count = res.data.data.length
-  const idx = Math.floor(Math.random() * count)
-  return res.data.data[idx].images.original.url
+  try {
+    const res = await axios.get("http://api.giphy.com/v1/gifs/search", {
+      params: {
+        q: str,
+        api_key: 'MhAodEJIJxQMxW9XqxKjyXfNYdLoOIym'
+      }
+    })
+    const count = res.data.data.length
+    const idx = Math.floor(Math.random() * count)
+    return res.data.data[idx].images.original.url
+  } catch (err) {
+    console.error(err)
+  }
 }
