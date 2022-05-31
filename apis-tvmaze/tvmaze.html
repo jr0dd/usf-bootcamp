@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>TV Maze</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css"
+    />
+  </head>
+  <body>
+    <div class="container">
+      <h1>TV Maze</h1>
+
+      <form class="form-inline" id="search-form">
+        <input
+          class="form-control"
+          id="search-query"
+          placeholder="show to lookup"
+        />
+        <button class="btn btn-primary" type="submit">Search</button>
+      </form>
+
+      <div class="row mt-3" id="shows-list"></div>
+    </div>
+    <div
+      class="modal fade"
+      id="Episodes"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="episodes"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="episodes">Episodes</h5>
+          </div>
+          <div class="modal-body">
+            <ul id="episodes-list">
+
+            </ul>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-dismiss="modal"
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="http://unpkg.com/jquery"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="http://unpkg.com/axios/dist/axios.js"></script>
+    <script src="tvmaze.js"></script>
+  </body>
+</html>
