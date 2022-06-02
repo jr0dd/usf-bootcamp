@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Tip Pool</title>
+        <link rel="stylesheet" href="style.css" />
+    </head>
+    <body>
+        <h1>Tip Pool</h1>
+
+        <section>
+            <aside>
+                <h4>Input payment info</h4>
+                <form id="paymentForm">
+                    <label for="billAmt">Bill Amount</label>
+                    <input type="number" id="billAmt" autofocus />
+
+                    <label for="tipAmt">Tip Amount</label>
+                    <input type="number" id="tipAmt" />
+
+                    <button>submit</button>
+                </form>
+
+                <table id="paymentTable">
+                    <thead>
+                        <tr>
+                            <th>Bill amt</th>
+                            <th>Tip amt</th>
+                            <th>Tip percent</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </aside>
+            <aside>
+                <h4>Input server info</h4>
+                <form id="serverForm">
+                    <label for="serverName">Server Name</label>
+                    <input id="serverName" />
+
+                    <button>submit</button>
+                </form>
+
+                <table id="serverTable">
+                    <thead>
+                        <tr>
+                            <th>Server Name</th>
+                            <th>Earnings</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </aside>
+        </section>
+
+        <section id="summary">
+            <h3>Shift summary</h3>
+            <table id="summaryTable">
+                <thead>
+                    <tr>
+                        <th>Bill total</th>
+                        <th>Tip total</th>
+                        <th>Tip percent avg</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <link
+            rel="stylesheet"
+            type="text/css"
+            href="https://cdnjs.cloudflare.com/ajax/libs/jasmine/3.3.0/jasmine.css"
+        />
+        <script
+            type="text/javascript"
+            src="https://cdnjs.cloudflare.com/ajax/libs/jasmine/3.3.0/jasmine.js"
+        ></script>
+        <script
+            type="text/javascript"
+            src="https://cdnjs.cloudflare.com/ajax/libs/jasmine/3.3.0/jasmine-html.js"
+        ></script>
+        <script
+            type="text/javascript"
+            src="https://cdnjs.cloudflare.com/ajax/libs/jasmine/3.3.0/boot.js"
+        ></script>
+
+        <script src="payments.js"></script>
+        <script src="payments.test.js"></script>
+        <script src="servers.js"></script>
+        <script src="servers.test.js"></script>
+        <script src="helpers.js"></script>
+        <script src="helpers.test.js"></script>
+    </body>
+</html>

@@ -1,0 +1,86 @@
+body {
+  margin: 14%;
+  margin-top: 40px;
+  font-family: 'Trebuchet MS', Helvetica, sans-serif;
+}
+
+@media screen and (max-width: 900px) {
+  body {
+    margin: 5%;
+  }
+}
+
+header > h1 {
+  font-family: 'Trebuchet MS', Helvetica, sans-serif;
+  font-size: 3em;
+  color: grey;
+}
+
+.calc-container {
+  display: flex;
+  width: 100%;
+  flex-direction: row;
+  background-color: rgb(211, 211, 211);
+  color: black;
+  font-size: 1.4em;
+}
+
+@media screen and (max-width: 600px) {
+  .calc-container {
+    font-size: 0.9em;
+  }
+  input {
+    font-size: 0.9em;
+    padding: 1px;
+  }
+}
+
+.calc-container > form {
+  display: flex;
+  flex-direction: column;
+  border: 2px solid darkgrey;
+  flex: 1;
+  padding: 10px;
+}
+
+.calc-container > form > label {
+  padding: 10px;
+  padding-left: 0px;
+  font-size: 1.3em;
+}
+
+button {
+  font-size: 2em;
+  -webkit-border-radius: 30px;
+  -moz-border-radius: 30px;
+  border-radius: 30px;
+  background-color: rgb(150, 150, 150);
+  color: white;
+  max-width: 300px;
+  min-width: 230px;
+  border: 3px solid black;
+}
+
+input {
+  -webkit-border-radius: 30px;
+  -moz-border-radius: 30px;
+  border-radius: 30px;
+  padding: 3px;
+  padding-left: 10px;
+  font-size: 1.3em;
+}
+
+.calc-container > div {
+  flex: 1;
+  border: 2px solid darkgrey;
+  padding-left: 5px;
+}
+
+.calc-container h3 {
+  font-size: 1.5em;
+}
+
+#calc-submit {
+  width: 60px;
+  align-self: center;
+}
