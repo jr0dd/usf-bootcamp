@@ -3,9 +3,9 @@ def any7(nums):
 
     # YOUR CODE HERE
     if 7 in nums:
-        return(True)
+        return True
     else:
-        return(False)
+        return False
 
 print("should be true", any7([1, 2, 7, 4, 5]))
 print("should be false", any7([1, 2, 4, 5]))

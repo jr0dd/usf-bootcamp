@@ -18,7 +18,7 @@ def in_range(nums, lowest, highest):
     # YOUR CODE HERE
     new_nums = []
     for x in nums:
-        if(x >= lowest and x <= highest):
+        if x >= lowest and x <= highest:
             new_nums.append(x)
     print(min(new_nums), 'fits')
     print(max(new_nums), 'fits')
