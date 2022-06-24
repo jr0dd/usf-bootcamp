@@ -1,0 +1,19 @@
+<html>
+<head>
+  <title>Madlibs</title>
+</head>
+<body>
+  <h1>Madlibs</h1>
+  <div>
+    <form action="/story" style="display:list-item" >
+      {% for input in inputs %}
+      <div style="margin: 10px 0">
+        <label for="{{ input }}">{{ input }}:</label>
+        <input name="{{ input }}">
+      </div>
+      {% endfor %}
+      <button>Submit</button>
+    </form>
+  </div>
+</body>
+</html>
