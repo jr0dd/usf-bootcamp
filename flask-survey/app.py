@@ -1,4 +1,4 @@
-from flask import Flask, request, render_template, redirect, flash, jsonify
+from flask import Flask, request, render_template, redirect, flash, session
 from flask_debugtoolbar import DebugToolbarExtension
 from surveys import satisfaction_survey as survey
 
@@ -8,8 +8,6 @@ app.config['DEBUG_TB_INTERCEPT_REDIRECTS'] = False
 app.debug = True
 
 debug = DebugToolbarExtension(app)
-
-responses = []
 
 @app.route('/')
 def root():
@@ -23,7 +21,9 @@ def root():
 
 @app.route('/start', methods=['POST'])
 def start():
-    """Actually start the survey."""
+    """Start the survey and empty responses in session storage."""
+    
+    session['responses'] = []
 
     return redirect('/questions/0')
 
@@ -31,18 +31,19 @@ def start():
 @app.route('/questions/<int:q_id>')
 def questions(q_id):
     """Create questions pages"""
+    
+    responses = session['responses']
 
-    res = len(responses)
-
-    if res == 0 and q_id != 0:
+    if len(responses) == 0 and q_id != 0:
+        flash('Click start to begin survey!')
         return redirect('/')
 
-    if res == len(survey.questions) and res > 0:
+    if len(responses) == len(survey.questions):
         return redirect('/thanks')
 
-    if q_id != res:
-        flash(f'Invalid question: {q_id}.')
-        return redirect(f'/questions/{res}')
+    if q_id != len(responses):
+        flash('Please answer questions in order!')
+        return redirect(f'/questions/{len(responses)}')
 
     question = survey.questions[q_id]
     choices = question.choices
@@ -55,7 +56,10 @@ def answers():
     """Create answer route"""
 
     choice = request.form['answer']
+    
+    responses = session['responses']
     responses.append(choice)
+    session['responses'] = responses
 
     if len(survey.questions) == len(responses):
         return redirect('/thanks')
