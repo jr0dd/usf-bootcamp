@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="./../static/style.css">
+  <title>Flask Boggle</title>
+</head>
+<body>
+  <section id="game-container">
+    <div id="stats">
+      <span>
+        Score: <b id="score">0</b>
+        <br>
+        Time Left: <b id="timer">0</b>
+      </span>
+      <span>
+        High Score: <br><b>{{ highscore }}</b> in <b>{{ plays }}</b> plays
+      </span>
+    </div>
+    <table id="board">
+      {% for row in board %}
+      <tr>
+        {% for cell in row %}
+        <td>{{ cell }}</td>
+        {% endfor %}
+      </tr>
+      {% endfor %}
+    </table>
+    <form id="search">
+      <input name="word" id="word" placeholder="enter your guess">
+      <button>Search</button>
+    </form>
+    <div id="output">
+      <span id="message"></span>
+      <ul id="word-list"></ul>
+    </div>
+  </section>
+  <script src="https://unpkg.com/jquery"></script>
+  <script src="https://unpkg.com/axios/dist/axios.js"></script>
+  <script src="./../static/script.js"></script>
+  <script>
+    const game = new Game()
+  </script>
+</body>
+</html>
