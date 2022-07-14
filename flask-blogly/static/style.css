@@ -1,0 +1,65 @@
+h1 {
+  font-size: 2.5em;
+}
+
+.container {
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.user-list {
+  font-size: 1.2em;
+  list-style-type: square;
+}
+
+.user-form {
+  display: flex;
+  flex-direction: column;
+  width: 500px;
+  gap: 10px;
+}
+
+.user-details {
+  display: flex;
+  gap: 30px;
+  align-items: space-around;
+}
+
+.user-details > * {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+label {
+  font-size: 1.1em;
+  font-weight: 500;
+}
+
+input {
+  height: 30px;
+  font-size: 1em;
+  padding-left: 8px;
+}
+
+img {
+  width: 180px;
+  height: 180px;
+}
+
+button {
+  width: 80px;
+  height: 35px;
+  border: solid white 1px;
+  font-size: .9em;
+  border-radius: 4px;
+  background-color: rgb(65, 101, 218);
+  color: white;
+}
+
+.cancel,
+.delete {
+  background-color: rgb(218, 65, 93);
+  color:white;
+}
