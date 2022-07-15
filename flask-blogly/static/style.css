@@ -1,16 +1,56 @@
-h1 {
-  font-size: 2.5em;
+* {
+  font-family: 'Lato', sans-serif;
 }
 
-.container {
+body {
+  margin: auto;
+  background-color: rgb(225, 218, 218);
+}
+
+nav {
+  display: flex;
+  justify-content: flex-start;
+  gap: 20px;
+  color: black;
+  font-size: 1.5em;
+  background-color: rgb(194, 190, 190);
+  text-align: center;
+  border-bottom: 1.5px solid black;
+  border-top: 1.5px solid black;
+  padding: 8px;
+}
+
+nav > a {
+  color: black;
+}
+
+h1 {
+  font-size: 2.5em;
+  text-align: center;
+}
+
+p {
+  font-size: 1.5em;
+}
+
+#main-container {
   margin: auto;
   display: flex;
   flex-direction: column;
+  align-items: center;
 }
 
 .user-list {
   font-size: 1.2em;
   list-style-type: square;
+}
+
+li {
+  margin: 8px 5px;
+}
+
+li > a {
+  color: rgb(5, 53, 156);
 }
 
 .user-form {
@@ -26,12 +66,6 @@ h1 {
   align-items: space-around;
 }
 
-.user-details > * {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-}
-
 label {
   font-size: 1.1em;
   font-weight: 500;
@@ -44,22 +78,109 @@ input {
 }
 
 img {
-  width: 180px;
-  height: 180px;
+  width: 300px;
+  height: 300px;
+  margin: 25px;
+}
+
+.btn-row {
+  display: flex;
+  gap: 8px;
+  justify-content: space-evenly;
 }
 
 button {
   width: 80px;
   height: 35px;
-  border: solid white 1px;
   font-size: .9em;
   border-radius: 4px;
+}
+
+.edit {
   background-color: rgb(65, 101, 218);
+  border: solid white 1px;
   color: white;
 }
 
-.cancel,
+.save {
+  background-color: rgb(28, 164, 112);
+  border: solid white 1px;
+  color: white;
+}
+
+.cancel {
+  background-color: white;
+  border: solid rgb(65, 101, 218) 1px;
+  color: rgb(65, 101, 218);
+}
+
 .delete {
   background-color: rgb(218, 65, 93);
+  border: solid white 1px;
   color:white;
+}
+
+.flash {
+  color: rgb(29, 30, 31);
+}
+
+.hide {
+  animation: autoHide 4s forwards;
+}
+
+@keyframes autoHide {
+  0%   {opacity: 1;}
+  25%   {opacity: .75;}
+  50%  {opacity: .5;}
+  75%  {opacity: .25;}
+  100% {opacity: 0;}
+}
+
+.post-form {
+  display: flex;
+  flex-direction: column;
+  width: 500px;
+  gap: 10px;
+}
+
+.post-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.post-list {
+  font-size: 1.1em;
+  list-style-type: square;
+}
+
+.content {
+  padding: 8px;
+  font-size: 1em;
+}
+
+.fof-container {
+  color: #888;
+  margin: 0;
+  display: table;
+  width: 100%;
+  height: 100vh;
+  text-align: center;
+}
+
+#fof {
+  display: table-cell;
+  vertical-align: middle;
+}
+
+#fof h1{
+  font-size: 50px;
+  display: inline-block;
+  padding-right: 12px;
+  animation: type .5s alternate infinite;
+}
+
+@keyframes type{
+  from{box-shadow: inset -3px 0px 0px #888;}
+  to{box-shadow: inset -3px 0px 0px transparent;}
 }

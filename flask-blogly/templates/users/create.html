@@ -3,13 +3,16 @@
 
 {% block content %}
 <h1>Create a user</h1>
-<form action="/users/new" method="post" class="user-form">
+<form class="user-form">
   <label for="first_name">First Name</label>
   <input type="text" placeholder="Enter a first name" name="first_name" required>
   <label for="last_name">Last Name</label>
   <input type="text" placeholder="Enter a last name" name="last_name" required>
   <label for="image_url">Image URL</label>
   <input type="url" placeholder="Provide an image of the user" name="image_url">
-  <button type="submit">Add</button>
+  <div class="btn-row">
+    <button formaction="/users" class="cancel" formnovalidate>Cancel</button>
+    <button formaction="/users/new" formmethod="post" type="submit" class="save">Save</button>
+  </div>
 </form>
 {% endblock %}

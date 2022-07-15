@@ -1,7 +1,7 @@
 from unittest import TestCase
 
 from app import app
-from models import db, User
+from models import db, User, Post
 
 # Use test database and don't clutter tests with SQL
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql:///blogly_test'
@@ -19,7 +19,7 @@ db.create_all()
 
 class FlaskTests(TestCase):
     def setUp(self):
-        """Add test users"""
+        """Add test data"""
 
         User.query.delete()
 
@@ -27,16 +27,30 @@ class FlaskTests(TestCase):
         db.session.add(user)
         db.session.commit()
 
+        post = Post(title='my best blog ever', content='blah blah blah', user_id=user.id)
+        db.session.add(post)
+        db.session.commit()
+
         self.user_id = user.id
+        self.post_id = post.id
 
     def tearDown(self):
         """Clean up any leftover junk"""
 
         db.session.rollback()
 
-    def test_list_users(self):
+    def test_homepage(self):
         with app.test_client() as client:
             res = client.get('/', follow_redirects=True)
+            html = res.get_data(as_text=True)
+
+            self.assertEqual(res.status_code, 200)
+            self.assertIn('<h1>Blogly Recent Posts</h1>', html)
+            self.assertIn('<h2>my best blog ever</h2>', html)
+
+    def test_list_users(self):
+        with app.test_client() as client:
+            res = client.get('/users', follow_redirects=True)
             html = res.get_data(as_text=True)
 
             self.assertEqual(res.status_code, 200)
@@ -49,6 +63,7 @@ class FlaskTests(TestCase):
 
             self.assertEqual(res.status_code, 200)
             self.assertIn('<h1>Newbie Tester</h1>', html)
+            self.assertIn('my best blog ever', html)
 
     def test_add_user(self):
         with app.test_client() as client:
@@ -70,3 +85,37 @@ class FlaskTests(TestCase):
             self.assertEqual(res.status_code, 200)
             self.assertIn(f'<a href="/users/{self.user_id}">Noob Testy</a>', html)
 
+    def test_delete_user(self):
+        with app.test_client() as client:
+            res = client.post(f'/users/{self.user_id}/delete', follow_redirects=True)
+            html = res.get_data(as_text=True)
+
+            self.assertEqual(res.status_code, 200)
+            self.assertIn('<h2>No users have been created yet.</h2>', html)
+
+    def test_add_post(self):
+        with app.test_client() as client:
+            data = {'title': 'my new best blog', 'content': 'blahzay blahzay', 'user_id': self.user_id}
+            res = client.post(f'/users/{self.user_id}/posts/new', data=data, follow_redirects=True)
+            html = res.get_data(as_text=True)
+
+            self.assertEqual(res.status_code, 200)
+            self.assertIn('my best blog ever', html)
+            self.assertIn('my new best blog', html)
+
+    def test_edit_post(self):
+        with app.test_client() as client:
+            data = {'title': 'oooops', 'content': 'blahzay blahzay'}
+            res = client.post(f'/posts/{self.post_id}/edit', data=data, follow_redirects=True)
+            html = res.get_data(as_text=True)
+
+            self.assertEqual(res.status_code, 200)
+            self.assertIn('oooops', html)
+
+    def test_delete_post(self):
+        with app.test_client() as client:
+            res = client.post(f'/posts/{self.post_id}/delete', follow_redirects=True)
+            html = res.get_data(as_text=True)
+
+            self.assertEqual(res.status_code, 200)
+            self.assertNotIn('my new best blog', html)

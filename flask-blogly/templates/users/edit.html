@@ -10,9 +10,9 @@
   <input type="text" value="{{ user.last_name }}" name="last_name" required>
   <label for="image_url">Image URL</label>
   <input type="url" value="{{ user.image_url }}" name="image_url">
-  <div>
-    <button formaction="/users/{{ user.id }}" class="cancel">Cancel</button>
-    <button formaction="/users/{{ user.id }}/edit" formmethod="post" type="submit">Save</button>
+  <div class="btn-row">
+    <button formaction="/users/{{ user.id }}" class="cancel" formnovalidate>Cancel</button>
+    <button formaction="/users/{{ user.id }}/edit" formmethod="post" type="submit" class="save">Save</button>
   </div>
 </form>
 {% endblock %}
