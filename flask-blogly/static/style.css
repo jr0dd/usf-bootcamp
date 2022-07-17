@@ -16,7 +16,6 @@ nav {
   background-color: rgb(194, 190, 190);
   text-align: center;
   border-bottom: 1.5px solid black;
-  border-top: 1.5px solid black;
   padding: 8px;
 }
 
@@ -33,15 +32,22 @@ p {
   font-size: 1.5em;
 }
 
-#main-container {
+.main {
   margin: auto;
   display: flex;
   flex-direction: column;
   align-items: center;
+  gap: 5px;
 }
 
 .user-list {
   font-size: 1.2em;
+  list-style-type: square;
+}
+
+.post-list,
+.tag-list {
+  font-size: 1.1em;
   list-style-type: square;
 }
 
@@ -53,47 +59,99 @@ li > a {
   color: rgb(5, 53, 156);
 }
 
-.user-form {
-  display: flex;
-  flex-direction: column;
-  width: 500px;
-  gap: 10px;
-}
-
 .user-details {
   display: flex;
   gap: 30px;
   align-items: space-around;
 }
 
-label {
-  font-size: 1.1em;
+.post-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.editor {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 500px;
+  gap: 20px;
+}
+
+.row {
+  display: flex;
+  justify-content: center;
+  align-items: baseline;
+  width: 100%;
+}
+
+.text-label {
+  flex: 1;
+  font-size: 1em;
   font-weight: 500;
 }
 
-input {
-  height: 30px;
-  font-size: 1em;
-  padding-left: 8px;
+.input-col {
+  width: 100%;
+  font-size: 0.9em;
+  padding: 8px;
+  box-sizing: border-box;
+  border-radius: 4px;
+  border: solid rgb(65, 101, 218) 1px;
+  color: rgb(46, 45, 45);
 }
 
-img {
+.col {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 5px;
+  width: 100%;
+}
+
+.input-row,
+textarea {
+  flex: 4;
+  padding: 8px;
+  height: 7em;
+  width: 30em;
+  font-size: 0.9em;
+  padding-left: 8px;
+  border-radius: 4px;
+  border: solid rgb(65, 101, 218) 1px;
+  color: rgb(46, 45, 45);
+}
+
+.input-row {
+  height: 1em;
+}
+
+.avatar {
   width: 300px;
   height: 300px;
   margin: 25px;
 }
 
-.btn-row {
-  display: flex;
-  gap: 8px;
-  justify-content: space-evenly;
-}
-
 button {
   width: 80px;
   height: 35px;
-  font-size: .9em;
+  font-size: 0.9em;
   border-radius: 4px;
+}
+
+.btn-row {
+  display: flex;
+  width: 100%;
+  gap: 5px;
+}
+
+.end {
+  justify-content: flex-end;
+}
+
+.center {
+  justify-content: center;
 }
 
 .edit {
@@ -117,46 +175,69 @@ button {
 .delete {
   background-color: rgb(218, 65, 93);
   border: solid white 1px;
-  color:white;
+  color: white;
+}
+
+.add {
+  margin-right: auto;
+  background-color: rgb(65, 101, 218);
+  border: solid white 1px;
+  color: white;
+}
+
+.tag-container {
+  display: flex;
+  flex-flow: column wrap;
+  width: 100%;
+}
+
+.tag-row {
+  display: flex;
+  justify-content: flex-start;
+  gap: 3px;
+  margin: 5px 0;
+}
+
+.tag,
+.no-tag {
+  border-radius: 5px;
+  font-size: 0.8em;
+  padding: 2px 4px;
+  color: white;
+}
+
+.tag {
+  background-color: rgb(65, 101, 218);
+}
+
+.no-tag {
+  background-color: rgb(218, 65, 93);
 }
 
 .flash {
-  color: rgb(29, 30, 31);
+  color: rgb(181, 44, 80);
 }
 
 .hide {
-  animation: autoHide 4s forwards;
+  animation: autoHide 5s forwards;
 }
 
 @keyframes autoHide {
-  0%   {opacity: 1;}
-  25%   {opacity: .75;}
-  50%  {opacity: .5;}
-  75%  {opacity: .25;}
-  100% {opacity: 0;}
-}
-
-.post-form {
-  display: flex;
-  flex-direction: column;
-  width: 500px;
-  gap: 10px;
-}
-
-.post-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.post-list {
-  font-size: 1.1em;
-  list-style-type: square;
-}
-
-.content {
-  padding: 8px;
-  font-size: 1em;
+  0% {
+    opacity: 1;
+  }
+  25% {
+    opacity: 0.75;
+  }
+  50% {
+    opacity: 0.5;
+  }
+  75% {
+    opacity: 0.25;
+  }
+  100% {
+    opacity: 0;
+  }
 }
 
 .fof-container {
@@ -173,14 +254,18 @@ button {
   vertical-align: middle;
 }
 
-#fof h1{
+#fof h1 {
   font-size: 50px;
   display: inline-block;
   padding-right: 12px;
-  animation: type .5s alternate infinite;
+  animation: type 0.5s alternate infinite;
 }
 
-@keyframes type{
-  from{box-shadow: inset -3px 0px 0px #888;}
-  to{box-shadow: inset -3px 0px 0px transparent;}
+@keyframes type {
+  from {
+    box-shadow: inset -3px 0px 0px #888;
+  }
+  to {
+    box-shadow: inset -3px 0px 0px transparent;
+  }
 }

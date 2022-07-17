@@ -1,18 +1,51 @@
-{% extends 'base.html'  %}
-{% block title %}Edit a user{% endblock %}
-
-{% block content %}
+{% extends 'base.html' %} {% block title %}Edit a user{% endblock %} {% block
+content %}
 <h1>Edit a user</h1>
-<form class="user-form">
-  <label for="first_name">First Name</label>
-  <input type="text" value="{{ user.first_name }}" name="first_name" required>
-  <label for="last_name">Last Name</label>
-  <input type="text" value="{{ user.last_name }}" name="last_name" required>
-  <label for="image_url">Image URL</label>
-  <input type="url" value="{{ user.image_url }}" name="image_url">
-  <div class="btn-row">
-    <button formaction="/users/{{ user.id }}" class="cancel" formnovalidate>Cancel</button>
-    <button formaction="/users/{{ user.id }}/edit" formmethod="post" type="submit" class="save">Save</button>
+<form class="editor">
+  <div class="col">
+    <label for="first_name" class="text-label">First Name</label>
+    <input
+      type="text"
+      class="input-col"
+      id="first_name"
+      name="first_name"
+      value="{{ user.first_name }}"
+      required
+    />
+  </div>
+  <div class="col">
+    <label for="last_name" class="text-label">Last Name</label>
+    <input
+      type="text"
+      class="input-col"
+      id="last_name"
+      name="last_name"
+      value="{{ user.last_name }}"
+      required
+    />
+  </div>
+  <div class="col">
+    <label for="image_url" class="text-label">Image URL</label>
+    <input
+      type="url"
+      class="input-col"
+      id="last_name"
+      name="image_url"
+      value="{{ user.image_url }}"
+    />
+  </div>
+  <div class="btn-row end">
+    <button formaction="/users/{{ user.id }}" class="cancel" formnovalidate>
+      Cancel
+    </button>
+    <button
+      formaction="/users/{{ user.id }}/edit"
+      type="submit"
+      class="save"
+      formmethod="post"
+    >
+      Edit
+    </button>
   </div>
 </form>
 {% endblock %}

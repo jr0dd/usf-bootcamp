@@ -1,41 +1,52 @@
-{% extends 'base.html'  %}
-{% block title %}User details{% endblock %}
-
-{% block content %}
+{% extends 'base.html' %} {% block title %}User details{% endblock %} {% block
+content %}
 <div class="user-details">
-  <img src="{{ user.image_url }}" alt="{{ user.full_name }}">
+  <img src="{{ user.image_url }}" alt="{{ user.full_name }}" class="avatar" />
   <div>
     <form>
       <h1>{{ user.full_name }}</h1>
-      <div class="btn-row">
-        <button formaction="/users/{{ user.id }}/edit" class="edit">Edit</button>
-        <button formaction="/users/{{ user.id }}/delete" formmethod="post" class="delete">Delete</button>
+      <div class="btn-row center">
+        <button formaction="/users/{{ user.id }}/edit" class="edit">
+          Edit
+        </button>
+        <button
+          formaction="/users/{{ user.id }}/delete"
+          class="delete"
+          formmethod="post"
+        >
+          Delete
+        </button>
       </div>
     </form>
     <div class="post-container">
       <h2>Posts</h2>
-        {% with messages = get_flashed_messages() %}
-        {% if messages %}
-        <div class="alerts hide">
-          {% for message in messages %}
-          <span class="flash">{{ message }}</span>
-          {% endfor %}
-        </div>
-        {% endif %}
-        {% endwith %}
-      {% if user.posts %}
-      <ul>
-        {% for post in user.posts %}
-        <li class="post-list">
-          <a href="/posts/{{ post.id }}">{{ post.title }}</a>
-          <small>{{ post.humanize_date }}</small>
-        </li>
+
+      {% with messages = get_flashed_messages() %} {% if messages %}
+      <div class="alerts hide">
+        {% for message in messages %}
+        <span class="flash">{{ message }}</span>
         {% endfor %}
-      </ul>
-      {% else %}
-      <p>No posts have been made yet</p> 
-      {% endif %}
-      <a href="/users/{{ user.id }}/posts/new"><button class="edit">Add Post</button></a>
+      </div>
+      {% endif %} {% endwith %}
+
+      <div>
+        {% if user.posts %}
+        <ul>
+          {% for post in user.posts %}
+          <li class="post-list">
+            <a href="/posts/{{ post.id }}">{{ post.title }}</a>
+            <small>{{ post.humanize_date }}</small>
+          </li>
+          {% endfor %}
+        </ul>
+        {% else %}
+        <p>No posts have been made yet</p>
+        {% endif %}
+      </div>
+
+      <a href="/users/{{ user.id }}/posts/new"
+        ><button class="edit">Add Post</button></a
+      >
     </div>
   </div>
 </div>
