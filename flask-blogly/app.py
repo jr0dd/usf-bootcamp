@@ -2,6 +2,7 @@
 
 from flask import Flask, redirect, request, render_template, flash
 from flask_debugtoolbar import DebugToolbarExtension
+from psycopg2 import DatabaseError
 from models import db, connect_db, User, Post, Tag
 
 app = Flask(__name__)
@@ -128,7 +129,7 @@ def post_create_form(user_id):
     return render_template('posts/create.html', user=user, tags=tags)
 
 
-@app.route('/users/<int:user_id>/posts/new', methods={'POST'})
+@app.route('/users/<int:user_id>/posts/new', methods=['POST'])
 def post_create(user_id):
     """Create a post"""
 
@@ -213,17 +214,24 @@ def tag_create_form():
     return render_template('tags/create.html')
 
 
-@app.route('/tags/new', methods={'POST'})
+@app.route('/tags/new', methods=['POST'])
 def tag_create():
     """Create a tag"""
 
     tag = Tag(name=request.form['name'])
 
-    db.session.add(tag)
-    db.session.commit()
-    flash(f'{tag.name} successfully created.')
-
-    return redirect('/tags')
+    try:
+        db.session.add(tag)
+        db.session.commit()
+    except:
+        flash(f'{tag.name} already exists.')
+        db.session.rollback()
+        return render_template('tags/create.html', tag=tag)
+    else:
+        db.session.add(tag)
+        db.session.commit()
+        flash(f'{tag.name} successfully created.')
+        return redirect('/tags')
 
 
 @app.route('/tags/<int:tag_id>')
@@ -253,8 +261,7 @@ def tag_edit(tag_id):
 
     db.session.add(tag)
     db.session.commit()
-    flash(f'{tag.name} has been updated.')
-
+    flash(f'{tag.name} successfully updated.')
     return redirect('/tags')
 
 

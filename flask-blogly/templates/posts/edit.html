@@ -1,70 +1,40 @@
-{% extends 'base.html' %} {% block title %}Edit a post{% endblock %} {% block
-content %}
+{% extends 'base.html' %}
+
+{% block title %}Edit a post{% endblock %}
+
+{% block content %}
 <h1>Edit post</h1>
 <form class="editor">
   <div class="row">
     <label for="title" class="text-label">Title</label>
-    <input
-      type="text"
-      class="input-row"
-      name="title"
-      value="{{ post.title }}"
-      required
-    />
+    <input type="text" class="input-row" name="title" value="{{ post.title }}" required/>
   </div>
   <div class="row">
     <label for="content" class="text-label">Content</label>
     <textarea name="content" required>{{ post.content }}</textarea>
   </div>
-
-  {% with messages = get_flashed_messages() %} {% if messages %}
+  {% with messages = get_flashed_messages() %}
+  {% if messages %}
   <div class="alerts hide">
     {% for message in messages %}
     <span class="flash">{{ message }}</span>
     {% endfor %}
   </div>
-  {% endif %} {% endwith %} {% if tags %}
+  {% endif %}
+  {% endwith %}
+  {% if tags %}
   <div class="tag-container">
     {% for tag in tags %}
     <div class="tag-row">
-      <input
-        type="checkbox"
-        name="tags"
-        id="tag-{{ tag.id }}"
-        value="{{ tag.id }}"
-        {%
-        if
-        tag
-        in
-        post.tags
-        %}checked{%
-        endif
-        %}
-      />
+      <input type="checkbox" name="tags" id="tag-{{ tag.id }}" value="{{ tag.id }}" {% if tag in post.tags %}checked{% endif %}/>
       <label for name="{{ tag.id }}">{{ tag.name }}</label>
     </div>
     {% endfor %}
   </div>
   {% endif %}
   <div class="btn-row end">
-    <button formaction="/tags/new" class="add" formnovalidate value="posts">
-      Add tag
-    </button>
-    <button
-      formaction="/users/{{ post.user_id }}"
-      class="cancel"
-      formnovalidate
-    >
-      Cancel
-    </button>
-    <button
-      formaction="/posts/{{ post.id }}/edit"
-      type="submit"
-      class="save"
-      formmethod="post"
-    >
-      Edit
-    </button>
+    <button formaction="/users/{{ post.user_id }}" class="cancel" formnovalidate>Cancel</button>
+    <button formaction="/posts/{{ post.id }}/edit" type="submit" class="save" formmethod="post">Edit</button>
   </div>
 </form>
 {% endblock %}

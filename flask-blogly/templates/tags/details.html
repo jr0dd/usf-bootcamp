@@ -1,5 +1,8 @@
-{% extends 'base.html' %} {% block title %}{{ tag.name }}{% endblock %} {% block
-content %}
+{% extends 'base.html' %}
+
+{% block title %}{{ tag.name }}{% endblock %}
+
+{% block content %}
 <h1>{{ tag.name }}</h1>
 <div>
   {% if tag.posts %}
@@ -17,16 +20,8 @@ content %}
 <form>
   <div class="btn-row center">
     <button formaction="/tags" class="cancel">Cancel</button>
-    <button formaction="/tags/{{ tag.id }}/edit" type="submit" class="edit">
-      Edit
-    </button>
-    <button
-      formaction="/tags/{{ tag.id }}/delete"
-      class="delete"
-      formmethod="post"
-    >
-      Delete
-    </button>
+    <button formaction="/tags/{{ tag.id }}/edit" type="submit" class="edit">Edit</button>
+    <button formaction="/tags/{{ tag.id }}/delete" class="delete" formmethod="post">Delete</button>
   </div>
 </form>
 {% endblock %}

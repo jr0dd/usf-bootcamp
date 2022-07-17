@@ -1,31 +1,26 @@
-{% extends 'base.html' %} {% block title %}Post Details{% endblock %} {% block
-content %}
+{% extends 'base.html' %}
+
+{% block title %}Post Details{% endblock %}
+
+{% block content %}
 <h1>{{ post.title }}</h1>
 <p>{{ post.content }}</p>
 <small><i>Created on: {{ post.humanize_date }}</i></small>
 <div class="tag-row">
   <span><b>Tags: </b></span>
-  {% if post.tags %} {% for tag in post.tags %}
+  {% if post.tags %}
+  {% for tag in post.tags %}
   <a href="/tags/{{ tag.id }}"><i class="tag">{{ tag.name }}</i></a>
-  {% endfor %} {% else %}
+  {% endfor %}
+  {% else %}
   <span class="no-tag"><i>None</i></span>
   {% endif %}
 </div>
 <form>
   <div class="btn-row center">
-    <button formaction="/users/{{ post.user_id }}" class="cancel">
-      Cancel
-    </button>
-    <button formaction="/posts/{{ post.id }}/edit" type="submit" class="edit">
-      Edit
-    </button>
-    <button
-      formaction="/posts/{{ post.id }}/delete"
-      class="delete"
-      formmethod="post"
-    >
-      Delete
-    </button>
+    <button formaction="/users/{{ post.user_id }}" class="cancel">Cancel</button>
+    <button formaction="/posts/{{ post.id }}/edit" type="submit" class="edit">Edit</button>
+    <button formaction="/posts/{{ post.id }}/delete" class="delete" formmethod="post">Delete</button>
   </div>
 </form>
 {% endblock %}

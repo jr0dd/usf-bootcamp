@@ -1,5 +1,8 @@
-{% extends 'base.html' %} {% block title %}Create a post{% endblock %} {% block
-content %}
+{% extends 'base.html' %}
+
+{% block title %}Create a post{% endblock %}
+
+{% block content %}
 <h1>Add post for {{ user.full_name }}</h1>
 <form class="editor">
   <div class="row">
@@ -10,23 +13,20 @@ content %}
     <label for="content" class="text-label">Content</label>
     <textarea name="content" required></textarea>
   </div>
-
-  {% with messages = get_flashed_messages() %} {% if messages %}
+  {% with messages = get_flashed_messages() %}
+  {% if messages %}
   <div class="alerts hide">
     {% for message in messages %}
     <span class="flash">{{ message }}</span>
     {% endfor %}
   </div>
-  {% endif %} {% endwith %} {% if tags %}
+  {% endif %}
+  {% endwith %}
+  {% if tags %}
   <div class="tag-container">
     {% for tag in tags %}
     <div class="tag-row">
-      <input
-        type="checkbox"
-        name="tags"
-        id="tag-{{ tag.id }}"
-        value="{{ tag.id }}"
-      />
+      <input type="checkbox" name="tags" id="tag-{{ tag.id }}" value="{{ tag.id }}"/>
       <label for name="{{ tag.id }}">{{ tag.name }}</label>
     </div>
     {% endfor %}
@@ -34,17 +34,8 @@ content %}
   {% endif %}
   <div class="btn-row end">
     <button formaction="/tags/new" class="add" formnovalidate>Add tag</button>
-    <button formaction="/users/{{ user.id }}" class="cancel" formnovalidate>
-      Cancel
-    </button>
-    <button
-      formaction="/users/{{ user.id }}/posts/new"
-      type="submit"
-      class="save"
-      formmethod="post"
-    >
-      Add
-    </button>
+    <button formaction="/users/{{ user.id }}" class="cancel" formnovalidate>Cancel</button>
+    <button formaction="/users/{{ user.id }}/posts/new" type="submit" class="save" formmethod="post">Add</button>
   </div>
 </form>
 {% endblock %}

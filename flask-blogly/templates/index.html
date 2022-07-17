@@ -1,7 +1,11 @@
-{% extends 'base.html' %} {% block title %}Home{% endblock %} {% block content
-%}
+{% extends 'base.html' %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
 <h1>Blogly Recent Posts</h1>
-{% if posts %} {% for post in posts %}
+{% if posts %}
+{% for post in posts %}
 <h2>{{ post.title }}</h2>
 <p>{{ post.content }}</p>
 <small><i>By {{ post.users.full_name }} on {{ post.humanize_date }}</i></small>
@@ -14,6 +18,9 @@
     {% endfor %}
   </span>
 </div>
-{% endif %} {% endfor %} {% else %}
+{% endif %}
+{% endfor %}
+{% else %}
 <h2>No posts have been made yet!</h2>
-{% endif %} {% endblock%}
+{% endif %}
+{% endblock%}

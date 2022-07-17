@@ -1,49 +1,25 @@
-{% extends 'base.html' %} {% block title %}Create a user{% endblock %} {% block
-content %}
+{% extends 'base.html' %}
+
+{% block title %}Create a user{% endblock %}
+
+{% block content %}
 <h1>Create a user</h1>
 <form class="editor">
   <div class="col">
     <label for="first_name" class="text-label">First Name</label>
-    <input
-      type="text"
-      class="input-col"
-      id="first_name"
-      name="first_name"
-      placeholder="Enter a first name"
-      required
-    />
+    <input type="text" class="input-col" id="first_name" name="first_name" placeholder="Enter a first name" required/>
   </div>
   <div class="col">
     <label for="last_name" class="text-label">Last Name</label>
-    <input
-      type="text"
-      class="input-col"
-      id="last_name"
-      name="last_name"
-      placeholder="Enter a last name"
-      required
-    />
+    <input type="text" class="input-col" id="last_name" name="last_name" placeholder="Enter a last name" required/>
   </div>
   <div class="col">
     <label for="image_url" class="text-label">Image URL</label>
-    <input
-      type="url"
-      class="input-col"
-      id="image_url"
-      name="image_url"
-      placeholder="Provide the url of avatar"
-    />
+    <input type="url" class="input-col" id="image_url" name="image_url" placeholder="Provide the url of avatar"/>
   </div>
   <div class="btn-row end">
     <button formaction="/users" class="cancel" formnovalidate>Cancel</button>
-    <button
-      formaction="/users/new"
-      type="submit"
-      class="save"
-      formmethod="post"
-    >
-      Add
-    </button>
+    <button formaction="/users/new" type="submit" class="save" formmethod="post">Add</button>
   </div>
 </form>
 {% endblock %}

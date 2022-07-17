@@ -1,17 +1,23 @@
-{% extends 'base.html' %} {% block title %}Users{% endblock %} {% block content
-%}
-<h1>Users</h1>
+{% extends 'base.html' %}
 
-{% with messages = get_flashed_messages() %} {% if messages %}
+{% block title %}Users{% endblock %}
+
+{% block content %}
+<h1>Users</h1>
+{% with messages = get_flashed_messages() %}
+{% if messages %}
 <div class="alerts hide">
   {% for message in messages %}
   <span class="flash">{{ message }}</span>
   {% endfor %}
 </div>
-{% endif %} {% endwith %} {% if users %}
+{% endif %}
+{% endwith %}
+{% if users %}
 <ul class="user-list">
   {% for user in users %}
   <li>
+    <img src="{{ user.image_url }}" alt="{{ user.full_name }}" class="avatar-sm" />
     <a href="/users/{{ user.id }}">{{ user.full_name }}</a>
   </li>
   {% endfor %}
@@ -19,6 +25,5 @@
 {% else %}
 <h2>No users have been created yet.</h2>
 {% endif %}
-
 <a href="/users/new"><button class="edit">Add New</button></a>
 {% endblock%}

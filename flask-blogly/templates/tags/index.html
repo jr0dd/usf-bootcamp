@@ -1,14 +1,19 @@
-{% extends 'base.html' %} {% block title %}Tags{% endblock %} {% block content
-%}
-<h1>Tags</h1>
+{% extends 'base.html' %}
 
-{% with messages = get_flashed_messages() %} {% if messages %}
+{% block title %}Tags{% endblock %}
+
+{% block content %}
+<h1>Tags</h1>
+{% with messages = get_flashed_messages() %}
+{% if messages %}
 <div class="alerts hide">
   {% for message in messages %}
   <span class="flash">{{ message }}</span>
   {% endfor %}
 </div>
-{% endif %} {% endwith %} {% if tags %}
+{% endif %}
+{% endwith %}
+{% if tags %}
 <ul class="tag-list">
   {% for tag in tags %}
   <li>
@@ -19,6 +24,5 @@
 {% else %}
 <h2>No tags have been created yet.</h2>
 {% endif %}
-
 <a href="/tags/new"><button class="edit">Add New</button></a>
 {% endblock%}

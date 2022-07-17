@@ -9,7 +9,7 @@ body {
 
 nav {
   display: flex;
-  justify-content: flex-start;
+  justify-content: space-evenly;
   gap: 20px;
   color: black;
   font-size: 1.5em;
@@ -40,23 +40,27 @@ p {
   gap: 5px;
 }
 
-.user-list {
-  font-size: 1.2em;
-  list-style-type: square;
-}
-
-.post-list,
-.tag-list {
-  font-size: 1.1em;
-  list-style-type: square;
-}
-
 li {
   margin: 8px 5px;
 }
 
 li > a {
   color: rgb(5, 53, 156);
+}
+
+.user-list {
+  font-size: 1.2em;
+  list-style-type: none;
+}
+
+.user-list li {
+  margin-bottom: 20px;
+}
+
+.post-list,
+.tag-list {
+  font-size: 1.1em;
+  list-style-type: square;
 }
 
 .user-details {
@@ -127,10 +131,16 @@ textarea {
   height: 1em;
 }
 
-.avatar {
+.avatar-lg {
   width: 300px;
   height: 300px;
   margin: 25px;
+}
+
+.avatar-sm {
+  width: 30px;
+  height: 30px;
+  margin: -10px 10px;
 }
 
 button {
@@ -151,7 +161,7 @@ button {
 }
 
 .center {
-  justify-content: center;
+  justify-content: space-evenly;
 }
 
 .edit {
@@ -174,13 +184,6 @@ button {
 
 .delete {
   background-color: rgb(218, 65, 93);
-  border: solid white 1px;
-  color: white;
-}
-
-.add {
-  margin-right: auto;
-  background-color: rgb(65, 101, 218);
   border: solid white 1px;
   color: white;
 }
