@@ -3,4 +3,5 @@
 __pycache__
 config.json
 node_modules
+.venv/
 venv/
