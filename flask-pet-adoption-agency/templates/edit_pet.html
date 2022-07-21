@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block title %}Edit pet{% endblock %}
+
+{% block content %}
+<h1>Edit {{ pet.name }}</h1>
+<form class="editor" method="post">
+  {{ form.hidden_tag() }}
+
+  {% for field in form if field.widget.input_type != 'hidden'%}
+  <div class="row">
+    {{ field.label }}
+    {{ field }}
+    {% for err in field.errors %}
+    <small class="error">{{ err }}</small>
+    {% endfor %}
+  </div>
+  {% endfor %}
+  <div class="btn-row end">
+    <button formaction="{{ url_for(home) }}" class="cancel" formnovalidate>Cancel</button>
+    <button type="submit" class="add">Save</button>
+  </div>
+</form>
+{% endblock %}

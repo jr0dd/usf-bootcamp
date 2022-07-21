@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block title %}Pet details{% endblock %}
+
+{% block content %}
+<div class="pet-details">
+  <img src="{{ pet.photo_url }}" alt="{{ pet.name }}" class="avatar-lg" />
+  <div>
+    <h1>{{ pet.name }}</h1>
+    <form method="post">
+      <button class="edit">Update</button>
+    </form>
+  </div>
+</div>
+{% endblock %}
