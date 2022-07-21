@@ -3,7 +3,7 @@
 from flask import Flask, redirect, render_template, flash, url_for
 from flask_debugtoolbar import DebugToolbarExtension
 from models import db, connect_db, Pet
-from forms import AddPetForm
+from forms import AddPetForm, EditPetForm
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql:///adoptions'
@@ -28,7 +28,7 @@ def page_404(e):
 
 # home
 @app.route('/')
-def home():
+def root():
     """Home page"""
 
     pets = Pet.query.all()
@@ -44,7 +44,7 @@ def pet_create():
     if form.validate_on_submit():
         name = form.name.data
         species = form.species.data
-        photo_url = form.photo_url.data
+        photo_url = form.photo_url.data or None
         age = form.age.data
         notes = form.notes.data
 
@@ -53,17 +53,17 @@ def pet_create():
         db.session.add(pet)
         db.session.commit()
         flash(f'Added new {species} {name}')
-        return redirect(url_for(home))
+        return redirect('/')
     else:
-        return render_template('add_pet.html', form=form)
+        return render_template('pets/create.html', form=form)
 
 
-@app.route('/<int:pet_id>', methods=['GET', 'POST'])
+@app.route('/pets/<int:pet_id>', methods=['GET', 'POST'])
 def pet_edit(pet_id):
-    """Show pet edit form and handle edit."""
+    """Show pet details and handle edit form"""
 
     pet = Pet.query.get_or_404(pet_id)
-    form = AddPetForm(obj=pet)
+    form = EditPetForm(obj=pet)
 
     if form.validate_on_submit():
         pet.photo_url = form.photo_url.data
@@ -71,16 +71,6 @@ def pet_edit(pet_id):
         pet.available = form.available.data
         db.session.commit()
         flash(f'{pet.name} has been updated!')
-        return redirect(url_for(home))
+        return redirect('/')
     else:
-        return render_template('edit_pet.html', form=form, pet=pet)
-
-
-@app.route('/pets/<int:pet_id>')
-def pet_details(pet_id):
-    """Display pet details"""
-
-    pet = Pet.query.get_or_404(pet_id)
-    form = AddPetForm(obj=pet)
-
-    return render_template('pet_details.html', pet=pet, form=form)
+        return render_template('pets/edit_details.html', form=form, pet=pet)

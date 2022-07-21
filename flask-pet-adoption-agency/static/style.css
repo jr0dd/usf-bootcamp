@@ -2,7 +2,6 @@
 
 * {
   font-family: 'Work Sana', sans-serif;
-  transition: all 0.6s;
 }
 
 body {
@@ -26,6 +25,7 @@ h1 {
 .pcontainer {
   display: flex;
   justify-content: baseline;
+  flex-wrap: wrap;
   align-items: flex-start;
   gap: 20px;
   margin-bottom: 30px;
@@ -33,19 +33,36 @@ h1 {
 
 .pwrapper {
   display: flex;
+  width: 400px;
   flex-direction: column;
   align-items: flex-start;
   gap: 5px;
 }
 
+.pname > a {
+  color: rgb(28, 164, 112);
+  font-size: 18px;
+}
+
 .avatar-lg {
-  width: 80vh;
+  width: 100%;
   padding: 5px;
+  border: 1px solid rgba(28, 164, 112, .7);
+}
+
+.avatar-md {
+  height: 300px;
+  padding: 5px;
+  margin-top: 50px;
   border: 1px solid rgba(28, 164, 112, .7);
 }
 
 .pname {
   color: rgb(28, 164, 112);
+}
+
+.locked {
+  align-self: flex-start;
 }
 
 /* form */
@@ -57,6 +74,17 @@ h1 {
   gap: 20px;
 }
 
+.pet-details {
+  display: flex;
+  gap: 30px;
+  align-items: space-around;
+}
+
+.profile-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 .row {
   display: flex;
   justify-content: space-between;
@@ -131,7 +159,7 @@ button {
 /* flash messages */
 
 .flash {
-  color: rgb(28, 164, 112);
+  color: black;
 }
 
 .hide {
@@ -160,16 +188,12 @@ button {
 
 .fof-container {
   color: #888;
-  margin: 0;
-  display: table;
+  margin-top: 100px;
+  display: flex;
+  justify-content: center;
   width: 100%;
   height: 100vh;
   text-align: center;
-}
-
-.fof {
-  display: table-cell;
-  vertical-align: middle;
 }
 
 .fof h1 {

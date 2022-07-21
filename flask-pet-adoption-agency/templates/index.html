@@ -13,13 +13,14 @@
 </div>
 {% endif %}
 {% endwith %}
+<a href="/add"><button class="add">Add a Pet</button></a>
 <div class="pcontainer">
   {% if pets %}
   {% for pet in pets %}
   <div class="pwrapper">
     <img src="{{ pet.photo_url }}" alt="{{ pet.name }}" class="avatar-lg">
     <div>
-      <span class="pname"><a href="{{ url_for(pet_details) }}">{{ pet.name }}</a></span>
+      <span class="pname"><a href="/pets/{{ pet.id }}">{{ pet.name }}</a></span>
       {% if pet.available %}
       <span><b> is avaliable!</b></span>
       {% endif %}
@@ -30,5 +31,4 @@
   <h2>No pets have been added yet!</h2>
   {% endif %}
 </div>
-<a href="/add"><button class="add">Add a Pet</button></a>
 {% endblock %}
