@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="./static/style.css">
+  <title>Document</title>
+</head>
+<body>
+  <h1>Cupcakes</h1>
+  <div class="c-container">
+    <ul class="c-list"></ul>
+  </div>
+  <h2>Add new cupcake flavor</h2>
+  <form class="c-form">
+    <div class="row">
+      <label for="flavor" class="text-label">Flavor</label>
+      <input type="text" class="input-row" id="flavor" name="flavor" required />
+    </div>
+    <div class="row">
+      <label for="size" class="text-label">Size</label>
+      <input type="text" class="input-row" id="size" name="flavor" required />
+    </div>
+    <div class="row">
+      <label for="rating" class="text-label">Rating</label>
+      <input type="number" class="input-row" id="rating" name="rating" required />
+    </div>
+    <div class="row">
+      <label for="image" class="text-label">Image</label>
+      <input type="url" class="input-row" id="image" name="image" />
+    </div>
+    <div class="btn-row end">
+      <button type="submit" class="add">Add</button>
+    </div>
+  </form>
+  <script src="https://unpkg.com/jquery"></script>
+  <script src="https://unpkg.com/axios/dist/axios.js"></script>
+  <script src="/static/script.js"></script>
+</body>
+</html>
