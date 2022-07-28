@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ user.username }} details{% endblock %}
+
+{% block content %}
+<div class="details">
+  <h1 class="name">{{ user.username }}</h1>
+
+  {% with messages = get_flashed_messages() %}
+  {% if messages %}
+  <div class="alerts hide">
+    {% for message in messages %}
+    <span class="flash">{{ message }}</span>
+    {% endfor %}
+  </div>
+
+  <div class="locked">
+    <p><b>First Name: </b>{{ user.first_name }}</p>
+    <p><b>Last Name: </b>{{ user.last_name }}</p>
+    <p><b>Email: </b>{{ user.email }}</p>
+  </div>
+  <h2>Feedback</h2>
+  <div>
+  {% if user.feedback %}
+  <ul class="feedback-list">
+    {% for feedback in user.feedback %}
+    <li>
+      <a href="/feedback/{{ feedback.id }}/update">{{ feedback.title }}</a>
+    </li>
+    {% endfor %}
+  </ul>
+  {% else %}
+  <h3>No feedback has been added yet.</h3>
+  {% endif %}
+  </div>
+  <form>
+    <div class="btn-row spaced">
+      <button class="delete" formmethod="post" formtarget="/users/{{ user.username }}/delete" formnovalidate>Delete</button>
+      <button class="add" formtarget="/users/{{ user.username }}/feedback/add" formnovalidate>Add Feedback</button>
+    </div>
+  </form>
+</div>
+{% endblock %}

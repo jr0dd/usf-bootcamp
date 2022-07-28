@@ -1,0 +1,22 @@
+{% extends 'base.html'  %}
+
+{% block content %}
+
+<h1>Add Feedback</h1>
+<form class="form-data" method="post" target="/users/{{ user.username }}/feedback/add">
+  {{ form.hidden_tag() }}
+
+  {% for field in form if field.widget.input_type != 'hidden'%}
+  <div class="row">
+    {{field.label}}
+    {{field}}
+    {% for err in field.errors %}
+    <small class="error">{{ err }}</small>
+    {% endfor %}
+  </div>
+  {% endfor %}
+  <div class="btn-row end">
+    <button type="submit" class="add">Add</button>
+  </div>
+</form>
+{% endblock %}
