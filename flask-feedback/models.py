@@ -28,15 +28,19 @@ class User(db.Model):
     feedback = db.relationship('Feedback', backref='users', cascade='all, delete-orphan')
 
     @classmethod
-    def register(cls, username, pwd):
+    def register(cls, username, password, first_name, last_name, email):
         """Register user w/hashed password & return user."""
 
-        hashed = bcrypt.generate_password_hash(pwd)
+        hashed = bcrypt.generate_password_hash(password)
         # turn bytestring into normal (unicode utf8) string
         hashed_utf8 = hashed.decode("utf8")
 
         # return instance of user w/username and hashed pwd
-        return cls(username=username, password=hashed_utf8)
+        return cls(username=username,
+                   password=hashed_utf8,
+                   first_name=first_name,
+                   last_name=last_name,
+                   email=email)
 
     @classmethod
     def authenticate(cls, username, pwd):

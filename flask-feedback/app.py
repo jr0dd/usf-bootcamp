@@ -30,9 +30,15 @@ def page_404(e):
 # root
 @app.route('/')
 def root():
-    """Redirect root to /register"""
+    """Render root page and if logged in redirect to user profile"""
 
-    return redirect('/register')
+    try:
+        session['username']
+    except:
+        return render_template('index.html')
+    
+    user = session['username']
+    return redirect(f'/users/{user}')
 
 
 # users
@@ -74,15 +80,14 @@ def login_form():
     if form.validate_on_submit():
         name = form.username.data
         password = form.password.data
+        user = User.authenticate(name, password)
 
-    user = User.authenticate(name, password)
-
-    if user:
-        session['username'] = user.username
-        flash(f'Welcome back {user.username}!')
-        return redirect(f'/users/{user.username}')
-    else:
-        form.username.errors = ['Incorrect username/password']
+        if user:
+            session['username'] = user.username
+            flash(f'Welcome back {user.username}!')
+            return redirect(f'/users/{user.username}')
+        else:
+            form.username.errors = ['Incorrect username/password']
 
     return render_template('users/login.html', form=form)
 
@@ -120,12 +125,10 @@ def user_delete(username):
 
     user = User.query.get_or_404(username)
     if user.username == session['username']:
-        db.session.delete(username)
-        db.session.commit()
+        db.session.delete(user)
         flash('Your account has successfully been deleted!')
+        db.session.commit()
         return redirect('/')
-    flash('You don\'t have permission to do that!')
-    return redirect(f'/users/{username}')
 
 
 # feedback
@@ -172,7 +175,7 @@ def feedback_update(id):
         flash('Feedback updated!')
         return redirect(f'/users/{feedback.username}')
 
-    return render_template('feedack/update.html', form=form)
+    return render_template('feedack/edit.html', form=form)
 
 
 @app.route('/feedback/<int:id>/delete', methods=['POST'])

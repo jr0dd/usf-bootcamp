@@ -3,7 +3,7 @@
 {% block content %}
 
 <h1>Add Feedback</h1>
-<form class="form-data" method="post" target="/users/{{ user.username }}/feedback/add">
+<form class="form-data" method="post">
   {{ form.hidden_tag() }}
 
   {% for field in form if field.widget.input_type != 'hidden'%}
@@ -15,8 +15,8 @@
     {% endfor %}
   </div>
   {% endfor %}
-  <div class="btn-row end">
-    <button type="submit" class="add">Add</button>
+  <div class="btn-row right">
+    <button type="submit" class="save">Add</button>
   </div>
 </form>
 {% endblock %}

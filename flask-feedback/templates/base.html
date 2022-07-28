@@ -8,6 +8,15 @@
     <title>{% block title %}{% endblock%}</title>
   </head>
   <body>
+    <nav class="nav-right">
+      {% if session['username'] %}
+        <a href="/logout">Logout</a>
+        <a href="/users/{{ session['username'] }}">Profile</a>
+      {% else %}
+        <a href="/login">Login</a>
+        <a href="/register">Sign up</a>
+      {% endif %}
+    </nav>
     <section class="main">{% block content %}{% endblock %}</section>
   </body>
 </html>

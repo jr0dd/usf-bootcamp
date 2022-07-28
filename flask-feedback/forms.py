@@ -12,11 +12,13 @@ class RegisterForm(FlaskForm):
     last_name = StringField('Last Name', validators=[InputRequired()])
     email = StringField('Email', validators=[InputRequired()])
 
+
 class LoginForm(FlaskForm):
     """Form for logging in a user"""
 
     username = StringField('Username', validators=[InputRequired()])
     password = PasswordField('Password', validators=[InputRequired()])
+
 
 class FeedbackForm(FlaskForm):
     """Form for creating a feedback"""

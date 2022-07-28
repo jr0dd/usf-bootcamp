@@ -4,7 +4,7 @@
 
 {% block content %}
 <h1>Update Feedback</h1>
-<form class="form-data" method="post">
+<form class="form-data" method="post" action="/feedback/{{ feedback.id }}/update">
   {{ form.hidden_tag() }}
 
   {% for field in form if field.widget.input_type != 'hidden'%}
@@ -16,7 +16,7 @@
     {% endfor %}
   </div>
   {% endfor %}
-  <div class="btn-row end">
+  <div class="btn-row right">
     <button type="submit" class="save">Update</button>
   </div>
 </form>

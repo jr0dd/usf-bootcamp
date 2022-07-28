@@ -14,9 +14,21 @@ User.query.delete()
 Feedback.query.delete()
 
 # Add users
-jim = User(username='jim_jones', password='1234567', first_name='Jim', last_name='Jones', email='jimjones@netscape.com')
-billy = User(username='billybob', password='abcdefg', first_name='Billy', last_name='Bob', email='billybob@compuserv.com')
-testy = User(username='testy69', password='AKMNDJK732734k', first_name='Testy', last_name='Tester', email='testytester@aol.com')
+jim = User.register(username='jim_jones',
+                    password='1234567',
+                    first_name='Jim',
+                    last_name='Jones',
+                    email='jimjones@netscape.com')
+billy = User.register(username='billybob',
+                      password='abcdefg',
+                      first_name='Billy',
+                      last_name='Bob',
+                      email='billybob@compuserv.com')
+testy = User.register(username='testy69',
+                      password='AKMNDJK732734k',
+                      first_name='Testy',
+                      last_name='Tester',
+                      email='testytester@aol.com')
 
 db.session.add(jim)
 db.session.add(billy)

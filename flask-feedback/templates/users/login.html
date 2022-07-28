@@ -5,15 +5,7 @@
 {% block content %}
 
 <h1>Login</h1>
-<p>Login Below. Don't have an account? <a href="/register">Register here</a></p>
-
-{% with messages = get_flashed_messages() %}
-{% if messages %}
-<div class="alerts hide">
-  {% for message in messages %}
-  <span class="flash">{{ message }}</span>
-  {% endfor %}
-</div>
+<h3>Enter your credentials</h3>
 
 <form class="form-data" method="post">
   {{ form.hidden_tag() }}
@@ -21,14 +13,20 @@
   {% for field in form if field.widget.input_type != 'hidden'%}
   <div class="row">
     {{field.label}}
-    {{field}}
-    {% for err in field.errors %}
-    <small class="error">{{ err }}</small>
-    {% endfor %}
+    <div class="col">
+      {% for err in field.errors %}
+      <small class="error">{{ err }}</small>
+      {% endfor %}
+      {{field}}
+    </div>
   </div>
   {% endfor %}
-  <div class="btn-row end">
-    <button type="submit" class="add">Login</button>
+  <br>
+  <div class="btn-row right">
+    <button type="submit" class="save">Login</button>
   </div>
 </form>
+<br>
+<br>
+<span>Don't have an account? <a href="/register">Register here</a></span>
 {% endblock %}

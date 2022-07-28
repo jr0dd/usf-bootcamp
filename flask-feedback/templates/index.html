@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block title %}Index{% endblock %}
+
+{% block content %}
+<h1>Private Access Only</h1>
+
+{% with messages = get_flashed_messages() %}
+{% if messages %}
+<div class="alerts hide">
+  {% for message in messages %}
+  <span class="flash">{{ message }}</span>
+  {% endfor %}
+</div>
+{% endif %}
+{% endwith %}
+
+<h2>Please <a href="/login">login</a> or <a href="/register">register</a> to access content</h2>
+{% endblock %}

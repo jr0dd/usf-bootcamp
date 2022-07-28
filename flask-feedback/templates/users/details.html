@@ -4,22 +4,24 @@
 
 {% block content %}
 <div class="details">
-  <h1 class="name">{{ user.username }}</h1>
-
-  {% with messages = get_flashed_messages() %}
-  {% if messages %}
-  <div class="alerts hide">
-    {% for message in messages %}
-    <span class="flash">{{ message }}</span>
-    {% endfor %}
-  </div>
-
+  <h1><span class="name">{{ user.username }}</span> profile</h1>
   <div class="locked">
+
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    <div class="alerts hide">
+      {% for message in messages %}
+      <span class="flash">{{ message }}</span>
+      {% endfor %}
+    </div>
+    {% endif %}
+    {% endwith %}
+
     <p><b>First Name: </b>{{ user.first_name }}</p>
     <p><b>Last Name: </b>{{ user.last_name }}</p>
     <p><b>Email: </b>{{ user.email }}</p>
   </div>
-  <h2>Feedback</h2>
+  <h3>Feedback</h3>
   <div>
   {% if user.feedback %}
   <ul class="feedback-list">
@@ -33,10 +35,10 @@
   <h3>No feedback has been added yet.</h3>
   {% endif %}
   </div>
-  <form>
+  <form method="post" action="/users/{{ user.username }}/delete">
     <div class="btn-row spaced">
-      <button class="delete" formmethod="post" formtarget="/users/{{ user.username }}/delete" formnovalidate>Delete</button>
-      <button class="add" formtarget="/users/{{ user.username }}/feedback/add" formnovalidate>Add Feedback</button>
+      <button type="submit" class="delete">Delete</button>
+      <button class="edit" formmethod="get" formaction="/users/{{ user.username }}/feedback/add" formnovalidate>Add Feedback</button>
     </div>
   </form>
 </div>
