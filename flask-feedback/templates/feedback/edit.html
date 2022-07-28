@@ -1,22 +1,29 @@
 {% extends 'base.html' %}
 
-{% block title %}{{ feedback.title }}{% endblock %}
+{% block title %}{{ feedback.title }} Edit{% endblock %}
 
 {% block content %}
 <h1>Update Feedback</h1>
-<form class="form-data" method="post" action="/feedback/{{ feedback.id }}/update">
+<form class="form-data" method="post">
   {{ form.hidden_tag() }}
 
   {% for field in form if field.widget.input_type != 'hidden'%}
   <div class="row">
-    {{ field.label }}
-    {{ field }}
-    {% for err in field.errors %}
-    <small class="error">{{ err }}</small>
-    {% endfor %}
+    <div class="col f-1">
+      {{field.label}}
+    </div>
+    <div class="col f-3">
+      {% for err in field.errors %}
+      <small class="error">{{ err }}</small>
+      {% endfor %}
+      {{field}}
+    </div>
   </div>
   {% endfor %}
+  <br>
   <div class="btn-row right">
+    <button class="delete" formaction="/feedback/{{ feedback.id }}/delete" formnovalidate>Delete</button>
+    <button class="cancel" formaction="/users/{{ feedback.username }}" formmethod="get" formnovalidate>Cancel</button>
     <button type="submit" class="save">Update</button>
   </div>
 </form>

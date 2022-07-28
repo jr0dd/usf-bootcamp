@@ -1,6 +1,6 @@
 """Feedback application."""
 
-from flask import Flask, redirect, request, render_template, flash, session
+from flask import Flask, redirect, render_template, flash, session
 from flask_debugtoolbar import DebugToolbarExtension
 from models import db, connect_db, User, Feedback
 from forms import RegisterForm, LoginForm, FeedbackForm
@@ -32,13 +32,11 @@ def page_404(e):
 def root():
     """Render root page and if logged in redirect to user profile"""
 
-    try:
-        session['username']
-    except:
-        return render_template('index.html')
-    
-    user = session['username']
-    return redirect(f'/users/{user}')
+    user = session.get('username')
+    if user:
+        return redirect(f'/users/{user}')
+
+    return render_template('index.html')
 
 
 # users
@@ -126,8 +124,9 @@ def user_delete(username):
     user = User.query.get_or_404(username)
     if user.username == session['username']:
         db.session.delete(user)
-        flash('Your account has successfully been deleted!')
+        session.pop('username')
         db.session.commit()
+        flash('Your account has successfully been deleted!')
         return redirect('/')
 
 
@@ -140,19 +139,20 @@ def feedback_create(username):
         flash('Please login first!')
         return redirect('/')
 
+    user = User.query.get_or_404(username)
     form = FeedbackForm()
     if form.validate_on_submit():
         title = form.title.data
         content = form.content.data
         feedback = Feedback(title=title, content=content, username=username)
 
-    if feedback.username == session['username']:
-        db.session.add(feedback)
-        db.session.commit()
-        flash('Feedback added!')
-        return redirect(f'/users/{feedback.username}')
+        if feedback.username == session['username']:
+            db.session.add(feedback)
+            db.session.commit()
+            flash('Feedback added!')
+            return redirect(f'/users/{feedback.username}')
 
-    return render_template('feedack/create.html', form=form)
+    return render_template('feedback/create.html', form=form, user=user)
 
 
 @app.route('/feedback/<int:id>/update', methods=['GET', 'POST'])
@@ -169,13 +169,13 @@ def feedback_update(id):
         feedback.title = form.title.data
         feedback.content = form.content.data
 
-    if feedback.username == session['username']:
-        db.session.add(feedback)
-        db.session.commit()
-        flash('Feedback updated!')
-        return redirect(f'/users/{feedback.username}')
+        if feedback.username == session['username']:
+            db.session.add(feedback)
+            db.session.commit()
+            flash('Feedback updated!')
+            return redirect(f'/users/{feedback.username}')
 
-    return render_template('feedack/edit.html', form=form)
+    return render_template('feedback/edit.html', form=form, feedback=feedback)
 
 
 @app.route('/feedback/<int:id>/delete', methods=['POST'])

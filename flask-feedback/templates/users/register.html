@@ -12,8 +12,10 @@
 
   {% for field in form if field.widget.input_type != 'hidden'%}
   <div class="row">
-    {{field.label}}
-    <div class="col">
+    <div class="col f-1">
+      {{field.label}}
+    </div>
+    <div class="col f-3">
       {% for err in field.errors %}
       <small class="error">{{ err }}</small>
       {% endfor %}
@@ -21,7 +23,6 @@
     </div>
   </div>
   {% endfor %}
-  <br>
   <div class="btn-row right">
     <button type="submit" class="save">Register</button>
   </div>

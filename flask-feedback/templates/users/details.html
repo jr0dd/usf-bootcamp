@@ -21,25 +21,31 @@
     <p><b>Last Name: </b>{{ user.last_name }}</p>
     <p><b>Email: </b>{{ user.email }}</p>
   </div>
-  <h3>Feedback</h3>
   <div>
-  {% if user.feedback %}
-  <ul class="feedback-list">
-    {% for feedback in user.feedback %}
-    <li>
-      <a href="/feedback/{{ feedback.id }}/update">{{ feedback.title }}</a>
-    </li>
-    {% endfor %}
-  </ul>
-  {% else %}
-  <h3>No feedback has been added yet.</h3>
-  {% endif %}
-  </div>
-  <form method="post" action="/users/{{ user.username }}/delete">
-    <div class="btn-row spaced">
-      <button type="submit" class="delete">Delete</button>
-      <button class="edit" formmethod="get" formaction="/users/{{ user.username }}/feedback/add" formnovalidate>Add Feedback</button>
+    <h3>Feedback</h3>
+    <ul class="feedback-list">
+    {% if user.feedback %}
+      {% for feedback in user.feedback %}
+      <li>
+        <a href="/feedback/{{ feedback.id }}/update">{{ feedback.title }}</a>
+      </li>
+      {% endfor %}
+      {% else %}
+      <li class="error">No feedback has been added yet.</li>
+      {% endif %}
+    </ul>
     </div>
-  </form>
+    <form method="post" action="/users/{{ user.username }}/delete">
+      <div class="btn-row between">
+        <div class="col">
+          <span>Account</span>
+          <button type="submit" class="delete">Delete</button>
+        </div>
+        <div class="col">
+          <span>Feedback</span>
+          <button formmethod="get" class="edit" formaction="/users/{{ user.username }}/feedback/add" formnovalidate>Add</button>
+        </div>
+      </div>
+    </form>
 </div>
 {% endblock %}
