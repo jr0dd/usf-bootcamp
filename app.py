@@ -1,6 +1,6 @@
 import os
 
-from flask import Flask, render_template, request, flash, redirect, session, g
+from flask import Flask, abort, render_template, request, flash, redirect, session, g
 from flask_debugtoolbar import DebugToolbarExtension
 from sqlalchemy.exc import IntegrityError
 
@@ -152,7 +152,8 @@ def users_show(user_id):
                 .order_by(Message.timestamp.desc())
                 .limit(100)
                 .all())
-    return render_template('users/show.html', user=user, messages=messages)
+    likes = [msg.id for msg in g.user.likes]
+    return render_template('users/show.html', user=user, messages=messages, likes=likes)
 
 
 @app.route('/users/<int:user_id>/following')
@@ -257,8 +258,21 @@ def delete_user():
     return redirect("/signup")
 
 
+@app.route('/users/<int:user_id>/likes', methods=["GET"])
+def user_likes(user_id):
+    """Display liked messages"""
+
+    if not g.user:
+        flash("Access unauthorized.", "danger")
+        return redirect("/")
+
+    user = User.query.get_or_404(user_id)
+    return render_template('users/likes.html', user=user, likes=user.likes)
+
+
 ##############################################################################
 # Messages routes:
+
 
 @app.route('/messages/new', methods=["GET", "POST"])
 def messages_add():
@@ -306,8 +320,37 @@ def messages_destroy(message_id):
     return redirect(f"/users/{g.user.id}")
 
 
+@app.route("/messages/<int:message_id>/like", methods=["POST"])
+def add_like(message_id):
+    """Toggle liked messages"""
+
+    if not g.user:
+        flash("Access unauthorized.", "danger")
+        return redirect("/")
+
+    liked_msg = Message.query.get_or_404(message_id)
+    if liked_msg.user_id == g.user.id:
+        abort
+
+    user_likes = g.user.likes
+
+    if liked_msg in user_likes:
+        g.user.likes = [like for like in user_likes if like != liked_msg]
+    else:
+        g.user.likes.append(liked_msg)
+
+    db.session.commit()
+    return redirect("/")
+
+
 ##############################################################################
 # Homepage and error pages
+# handle errors
+@app.errorhandler(404)
+def page_404(e):
+    """Error 404 page"""
+
+    return render_template('404.html'), 404
 
 
 @app.route('/')
@@ -326,9 +369,8 @@ def homepage():
                     .order_by(Message.timestamp.desc())
                     .limit(100)
                     .all())
-
-        return render_template('home.html', messages=messages)
-
+        likes = [msg.id for msg in g.user.likes]
+        return render_template('home.html', messages=messages, likes=likes)
     else:
         return render_template('home-anon.html')
 
