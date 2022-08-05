@@ -152,7 +152,10 @@ def users_show(user_id):
                 .order_by(Message.timestamp.desc())
                 .limit(100)
                 .all())
-    likes = [msg.id for msg in g.user.likes]
+    if g.user:
+        likes = [msg.id for msg in g.user.likes]
+    else:
+        likes = [msg.id for msg in user.likes]
     return render_template('users/show.html', user=user, messages=messages, likes=likes)
 
 
@@ -281,6 +284,7 @@ def messages_add():
     Show form if GET. If valid, update message and redirect to user page.
     """
 
+    print(str(request.data))
     if not g.user:
         flash("Access unauthorized.", "danger")
         return redirect("/")
@@ -301,8 +305,12 @@ def messages_add():
 def messages_show(message_id):
     """Show a message."""
 
+    if not g.user:
+        flash("Access unauthorized.", "danger")
+        return redirect("/")
+
     msg = Message.query.get(message_id)
-    return render_template('messages/show.html', message=msg)
+    return render_template('messages/show.html', message=msg, user=g.user)
 
 
 @app.route('/messages/<int:message_id>/delete', methods=["POST"])
@@ -330,7 +338,7 @@ def add_like(message_id):
 
     liked_msg = Message.query.get_or_404(message_id)
     if liked_msg.user_id == g.user.id:
-        abort
+        return abort(403)
 
     user_likes = g.user.likes
 

@@ -16,6 +16,7 @@ from models import db, User, Message, Follows
 # connected to the database
 
 os.environ['DATABASE_URL'] = "postgresql:///warbler-test"
+os.environ['SQLALCHEMY_ECHO'] = 'False'
 
 
 # Now we can import app
@@ -35,15 +36,32 @@ class UserModelTestCase(TestCase):
     def setUp(self):
         """Create test client, add sample data."""
 
-        User.query.delete()
-        Message.query.delete()
-        Follows.query.delete()
+        db.drop_all()
+        db.create_all()
+
+        user1 = User.signup("tester", "tester@aol.com", "7654321", None)
+        user2 = User.signup("testly", "testly@netscape.com", "1234567", None)
+        uid1 = 9000
+        uid2 = 9001
+        user1.id = uid1
+        user2.id = uid2
+
+        db.session.commit()
+
+        user1 = User.query.get(uid1)
+        user2 = User.query.get(uid2)
+
+        self.user1 = user1
+        self.uid1 = uid1
+        self.user2 = user2
+        self.uid2 = uid2
 
         self.client = app.test_client()
 
-    def test_user_model(self):
-        """Does basic model work?"""
+    def tearDown(self):
+        db.session.rollback()
 
+    def test_user_model(self):
         u = User(
             email="test@test.com",
             username="testuser",
@@ -56,3 +74,25 @@ class UserModelTestCase(TestCase):
         # User should have no messages & no followers
         self.assertEqual(len(u.messages), 0)
         self.assertEqual(len(u.followers), 0)
+
+    def test_user_signup(self):
+        self.assertIsNotNone(User.query.get(self.uid1))
+        self.assertIsNotNone(User.query.get(self.uid2))
+
+    def test_user_following(self):
+        self.user1.following.append(self.user2)
+        db.session.commit()
+        self.assertTrue(self.user1.is_following(self.user2))
+        self.assertFalse(self.user2.is_following(self.user1))
+
+    def test_user_followed(self):
+        self.user1.following.append(self.user2)
+        db.session.commit()
+        self.assertTrue(self.user2.is_followed_by(self.user1))
+        self.assertFalse(self.user1.is_followed_by(self.user2))
+
+    def test_user_login(self):
+        self.assertFalse(User.authenticate(self.user1.username, "123"))
+        self.assertTrue(User.authenticate(self.user1.username, "7654321"))
+        self.assertFalse(User.authenticate(self.user2.username, "123"))
+        self.assertTrue(User.authenticate(self.user2.username, "1234567"))
