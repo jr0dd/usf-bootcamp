@@ -40,7 +40,6 @@ $(() => {
       .then(res => {
         let card = res.data.cards[0]
         $('.card-stack').append(`<img src=${card.image}>`)
-        console.log(res.data.remaining)
         if (res.data.remaining === 0) {
           return $('.draw').remove()
         }

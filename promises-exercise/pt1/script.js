@@ -12,7 +12,7 @@ $(() => {
   query
     .then(res => {
       for (const val of Object.values(res.data)) {
-        $('#num-list').append(`<li>${val}(</li>`)
+        $('#num-list').append(`<li>${val}</li>`)
       }
     })
     .catch(err => console.error(err))
