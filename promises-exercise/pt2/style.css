@@ -1,0 +1,51 @@
+@import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600;700&display=swap');
+
+* {
+  font-family: 'Source Sans Pro', sans-serif;
+}
+
+body {
+  margin: auto;
+  background-color: rgb(83, 180, 95);
+}
+
+.main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.title {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 50px
+}
+
+.card-stack {
+  margin-top: 50px;
+  width: 250px;
+  height: 400px;
+}
+
+.card-stack > img {
+  margin: auto;
+  position: absolute;
+}
+
+.draw {
+  font-size: 18px;
+  background: rgb(53, 52, 54);
+  color: rgb(229, 235, 235);
+  border: 0.5px solid white;
+  border-radius: 4px;
+  padding: 0.5em 1em 0.5em 1em;
+}
+
+.draw:hover {
+  background-color: rgb(29, 28, 30);
+}
+
+.draw:active {
+  background-color: rgb(28, 27, 29);
+}
