@@ -1,7 +1,7 @@
-import { MarkovMachine } from './markov.js'
-import fs from 'node:fs/promises'
-import axios from 'axios'
-import { argv } from 'node:process'
+const { MarkovMachine } = require('./markov.js')
+const fs = require('node:fs/promises')
+const axios = require('axios')
+const { argv } = require('node:process')
 
 const getText = (data) => {
   const markov = new MarkovMachine(data)
@@ -29,11 +29,11 @@ const fileToText = async (file) => {
 
 switch (argv[2]) {
   case 'url':
-    await urlToText(argv[3])
-    break;
+    urlToText(argv[3])
+    break
   case 'file':
-    await fileToText(argv[3])
-    break;
+    fileToText(argv[3])
+    break
   default:
-    break;
+    break
 }
