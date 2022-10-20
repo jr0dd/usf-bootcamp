@@ -1,4 +1,5 @@
 import express from 'express'
+import slugify from 'slugify'
 import { ExpressError } from '../expressError.js'
 import { client as db } from './../db.js'
 const router = new express.Router()
@@ -12,8 +13,7 @@ router.get('/', async (req, res, next) => {
     `)
 
     return res.json({ companies: query.rows })
-  }
-  catch (err) {
+  } catch (err) {
     return next(err)
   }
 })
@@ -26,7 +26,7 @@ router.get('/:code', async (req, res, next) => {
       SELECT code, name, description
       FROM companies
       WHERE code = $1`,
-      [code]
+    [code]
     )
 
     if (compQuery.rows.length === 0) {
@@ -37,40 +37,52 @@ router.get('/:code', async (req, res, next) => {
       SELECT id
       FROM invoices
       WHERE comp_code = $1`,
-      [code]
+    [code]
+    )
+
+    const industryQuery = await db.query(`
+      SELECT industry_code
+      FROM company_industries
+      WHERE comp_code = $1`,
+    [code]
     )
 
     const compData = compQuery.rows[0]
     const invData = invQuery.rows
+    const industryData = industryQuery.rows
 
     const company = {
       code: compData.code,
       name: compData.name,
       description: compData.description
     }
-    company.invoices = invData.map(i => i.id)
     
+    company.invoices = invData.map(i => i.id)
+    company.industries = industryData.map(i => i.industry_code)
+
     return res.json({ company })
-  }
-  catch (err) {
+  } catch (err) {
     return next(err)
   }
 })
 
 router.post('/', async (req, res, next) => {
   try {
-    const { code, name, description } = req.body
+    const { name, description } = req.body
+    const code = slugify(name, {
+      lower: true,
+      strict: true
+    })
 
     const query = await db.query(`
       INSERT INTO companies (code, name, description) 
       VALUES ($1, $2, $3) 
       RETURNING code, name, description`,
-      [code, name, description]
+    [code, name, description]
     )
 
     return res.status(201).json({ company: query.rows[0] })
-  }
-  catch (err) {
+  } catch (err) {
     return next(err)
   }
 })
@@ -85,7 +97,7 @@ router.put('/:code', async (req, res, next) => {
       SET name=$1, description=$2
       WHERE code = $3
       RETURNING code, name, description`,
-      [name, description, code]
+    [name, description, code]
     )
 
     if (query.rows.length === 0) {
@@ -93,8 +105,7 @@ router.put('/:code', async (req, res, next) => {
     } else {
       return res.json({ company: query.rows[0] })
     }
-  }
-  catch (err) {
+  } catch (err) {
     return next(err)
   }
 })
@@ -107,16 +118,15 @@ router.delete('/:code', async (req, res, next) => {
       DELETE FROM companies
       WHERE code=$1
       RETURNING code`,
-      [code]
+    [code]
     )
 
-    if (query.rows.length == 0) {
+    if (query.rows.length === 0) {
       throw new ExpressError(`Company not found: ${code}`, 404)
     } else {
       return res.json({ status: 'deleted' })
     }
-  }
-  catch (err) {
+  } catch (err) {
     return next(err)
   }
 })
