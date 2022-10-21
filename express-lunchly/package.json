@@ -1,0 +1,19 @@
+{
+  "name": "lunchly",
+  "version": "1.0.0",
+  "description": "",
+  "type": "module",
+  "exports": "./server.js",
+  "scripts": {
+    "start": "nodemon --experimental-vm-modules --no-warnings ./server.js",
+    "test": "node --experimental-vm-modules --no-warnings ./node_modules/jest/bin/jest.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.16.3",
+    "moment": "^2.22.2",
+    "nunjucks": "^3.1.3",
+    "pg": "^8.3.3"
+  }
+}

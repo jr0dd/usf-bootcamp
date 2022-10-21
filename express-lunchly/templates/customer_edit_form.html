@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block title %}Edit {{ customer.firstName }} {{ customer.lastName }}{% endblock %}
+
+{% block content %}
+
+<form action="/{{ customer.id }}/edit/" method="POST">
+  <h1>Edit Customer</h1>
+
+  <div class="form-group">
+    <label for="first-name">First Name: </label>
+      <input id="first-name"
+             class="form-control"
+             name="firstName"
+             value="{{ customer.firstName }}">
+  </div>
+  <div class="form-group">
+    <label for="last-name">Last Name:</label>
+        <input id="last-name"
+               class="form-control"
+               name="lastName"
+               value="{{ customer.lastName }}">
+  </div>
+  <div class="form-group">
+    <label for="phone">Phone:</label>
+      <input id="phone"
+             class="form-control"
+             name="phone"
+             value="{{ customer.phone }}">
+  </div>
+  <div class="form-group">
+    <label for="notes"></label>Notes:
+    <textarea id="notes"
+              class="form-control"
+              name="notes">{{ customer.notes }}</textarea>
+  </div>
+  <button class="btn btn-primary">Add</button>
+  <a href="/{{ customer.id }}/" class="btn btn-danger">Cancel</a>
+</form>
+  
+{% endblock %}
