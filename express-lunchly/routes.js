@@ -1,8 +1,8 @@
 /** Routes for Lunchly */
 
 import express from 'express'
-import { Customer } from './models/customer.js'
-import { Reservation } from './models/reservation.js'
+import { Customer } from './models/Customer.js'
+import { Reservation } from './models/Reservation.js'
 
 const router = new express.Router()
 

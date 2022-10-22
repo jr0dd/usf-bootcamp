@@ -1,6 +1,7 @@
 {
   "name": "lunchly",
   "version": "1.0.0",
+  "author": "j_r0dd",
   "description": "",
   "type": "module",
   "exports": "./server.js",
@@ -8,7 +9,13 @@
     "start": "nodemon --experimental-vm-modules --no-warnings ./server.js",
     "test": "node --experimental-vm-modules --no-warnings ./node_modules/jest/bin/jest.js"
   },
-  "author": "",
+  "nodemonConfig": {
+    "ignore": [
+      "./src/commands/wip/*"
+    ],
+    "ext": "css,html,js,json,yaml",
+    "delay": 600
+  },
   "license": "ISC",
   "dependencies": {
     "express": "^4.16.3",

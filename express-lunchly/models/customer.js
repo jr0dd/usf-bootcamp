@@ -1,7 +1,7 @@
 /** Customer for Lunchly */
 
-import { db } from './../db.js'
-import { Reservation } from './reservation.js'
+import { db } from '../db.js'
+import { Reservation } from './Reservation.js'
 
 /** Customer of the restaurant. */
 
@@ -51,6 +51,10 @@ class Customer {
     }
 
     return new Customer(customer)
+  }
+
+  get fullName () {
+    return `${this.firstName} ${this.lastName}`
   }
 
   /** get all reservations for this customer. */
