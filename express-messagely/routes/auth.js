@@ -4,7 +4,6 @@
  *
  **/
 
-
 /** POST /register - register user: registers, logs in, and returns token.
  *
  * {username, password, first_name, last_name, phone} => {token}.

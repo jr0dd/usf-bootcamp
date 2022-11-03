@@ -5,7 +5,6 @@
 // const db = require("../db");
 // const User = require("../models/user");
 
-
 // describe("Auth Routes Test", function () {
 
 //   beforeEach(async function () {

@@ -1,12 +1,12 @@
 /** Database connection for messagely. */
 
+import pg from 'pg'
+import { DB_URI } from './config.js'
 
-const { Client } = require("pg");
-const { DB_URI } = require("./config");
+const db = new pg.Client({
+  connectionString: DB_URI
+})
 
-const client = new Client(DB_URI);
+db.connect()
 
-client.connect();
-
-
-module.exports = client;
+export { db }

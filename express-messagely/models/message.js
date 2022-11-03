@@ -1,18 +1,16 @@
 /** Message class for message.ly */
 
-const db = require("../db");
-const ExpressError = require("../expressError");
-
+import { db } from '../db.js'
+import { ExpressError } from '../expressError'
 
 /** Message on the site. */
 
 class Message {
-
   /** register new message -- returns
    *    {id, from_username, to_username, body, sent_at}
    */
 
-  static async create({from_username, to_username, body}) {
+  static async create ({ from_username, to_username, body }) {
     const result = await db.query(
         `INSERT INTO messages (
               from_username,
@@ -21,26 +19,26 @@ class Message {
               sent_at)
             VALUES ($1, $2, $3, current_timestamp)
             RETURNING id, from_username, to_username, body, sent_at`,
-        [from_username, to_username, body]);
+        [from_username, to_username, body])
 
-    return result.rows[0];
+    return result.rows[0]
   }
 
   /** Update read_at for message */
 
-  static async markRead(id) {
+  static async markRead (id) {
     const result = await db.query(
         `UPDATE messages
            SET read_at = current_timestamp
            WHERE id = $1
            RETURNING id, read_at`,
-        [id]);
+        [id])
 
     if (!result.rows[0]) {
-      throw new ExpressError(`No such message: ${id}`, 404);
+      throw new ExpressError(`No such message: ${id}`, 404)
     }
 
-    return result.rows[0];
+    return result.rows[0]
   }
 
   /** Get: get message by id
@@ -51,7 +49,7 @@ class Message {
    *
    */
 
-  static async get(id) {
+  static async get (id) {
     const result = await db.query(
         `SELECT m.id,
                 m.from_username,
@@ -69,12 +67,12 @@ class Message {
             JOIN users AS f ON m.from_username = f.username
             JOIN users AS t ON m.to_username = t.username
           WHERE m.id = $1`,
-        [id]);
+        [id])
 
-    let m = result.rows[0];
+    const m = result.rows[0]
 
     if (!m) {
-      throw new ExpressError(`No such message: ${id}`, 404);
+      throw new ExpressError(`No such message: ${id}`, 404)
     }
 
     return {
@@ -83,20 +81,19 @@ class Message {
         username: m.from_username,
         first_name: m.from_first_name,
         last_name: m.from_last_name,
-        phone: m.from_phone,
+        phone: m.from_phone
       },
       to_user: {
         username: m.to_username,
         first_name: m.to_first_name,
         last_name: m.to_last_name,
-        phone: m.to_phone,
+        phone: m.to_phone
       },
       body: m.body,
       sent_at: m.sent_at,
-      read_at: m.read_at,
-    };
+      read_at: m.read_at
+    }
   }
 }
 
-
-module.exports = Message;
+export { Message }

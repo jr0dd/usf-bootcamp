@@ -1,9 +1,7 @@
 /** Server startup for Message.ly. */
 
+import { app } from './app.js'
 
-const app = require("./app");
-
-
-app.listen(3000, function () {
-  console.log("Listening on 3000");
-});
+app.listen(3000, () => {
+  console.log('Listening on 3000')
+})
