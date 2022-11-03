@@ -1,0 +1,31 @@
+{
+  "name": "messagely",
+  "version": "1.0.0",
+  "description": "",
+  "type": "module",
+  "exports": "./server.js",
+  "scripts": {
+    "start": "nodemon --experimental-vm-modules --no-warnings ./server.js",
+    "test": "node --experimental-vm-modules --no-warnings ./node_modules/jest/bin/jest.js -i"
+  },
+  "nodemonConfig": {
+    "ignore": [
+      "./src/commands/wip/*"
+    ],
+    "ext": "css,html,js,json,yaml",
+    "delay": 600
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^5.0.0",
+    "body-parser": "^1.18.3",
+    "cors": "^2.8.4",
+    "dotenv": "^6.1.0",
+    "express": "^4.16.4",
+    "express-cors": "0.0.3",
+    "jsonwebtoken": "^8.3.0",
+    "pg": "^8.3.3",
+    "supertest": "^4.0.2"
+  }
+}
