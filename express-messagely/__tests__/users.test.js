@@ -1,6 +1,6 @@
-const db = require('../db')
-const User = require('../models/user')
-const Message = require('../models/message')
+import { db } from '../db.js'
+import { User } from '../models/User.js'
+import { Message } from '../models/Message.js'
 
 describe('Test User class', function () {
   beforeEach(async function () {

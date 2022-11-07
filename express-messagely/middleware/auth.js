@@ -1,18 +1,18 @@
 /** Middleware for handling req authorization for routes. */
 
-import { jwt } from 'jsonwebtoken'
+import jwt from 'jsonwebtoken'
 import { SECRET_KEY } from '../config.js'
 
 /** Middleware: Authenticate user. */
 
 const authenticateJWT = (req, res, next) => {
   try {
-    const tokenFromBody = req.body._token;
-    const payload = jwt.verify(tokenFromBody, SECRET_KEY);
-    req.user = payload; // create a current user
-    return next();
+    const tokenFromBody = req.body._token
+    const payload = jwt.verify(tokenFromBody, SECRET_KEY)
+    req.user = payload // create a current user
+    return next()
   } catch (err) {
-    return next();
+    return next()
   }
 }
 
@@ -20,24 +20,24 @@ const authenticateJWT = (req, res, next) => {
 
 const ensureLoggedIn = (req, res, next) => {
   if (!req.user) {
-    return next({ status: 401, message: "Unauthorized" });
+    return next({ status: 401, message: 'Unauthorized' })
   } else {
-    return next();
+    return next()
   }
 }
 
 /** Middleware: Requires correct username. */
 
-ensureCorrectUser = (req, res, next) => {
+const ensureCorrectUser = (req, res, next) => {
   try {
     if (req.user.username === req.params.username) {
-      return next();
+      return next()
     } else {
-      return next({ status: 401, message: "Unauthorized" });
+      return next({ status: 401, message: 'Unauthorized' })
     }
   } catch (err) {
     // errors would happen here if we made a request and req.user is undefined
-    return next({ status: 401, message: "Unauthorized" });
+    return next({ status: 401, message: 'Unauthorized' })
   }
 }
 // end
@@ -46,4 +46,4 @@ export {
   authenticateJWT,
   ensureLoggedIn,
   ensureCorrectUser
-};
+}

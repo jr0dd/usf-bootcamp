@@ -1,7 +1,7 @@
 /** Message class for message.ly */
 
 import { db } from '../db.js'
-import { ExpressError } from '../expressError'
+import { ExpressError } from '../ExpressError.js'
 
 /** Message on the site. */
 

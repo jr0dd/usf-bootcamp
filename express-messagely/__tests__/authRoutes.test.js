@@ -1,78 +1,76 @@
-// const request = require("supertest");
-// const jwt = require("jsonwebtoken");
+import request from 'supertest'
+import jwt from 'jsonwebtoken'
+import { app } from '../app.js'
+import { db } from '../db.js'
+import { User } from '../models/User.js'
 
-// const app = require("../app");
-// const db = require("../db");
-// const User = require("../models/user");
+describe('Auth Routes Test', function () {
+  beforeEach(async function () {
+    await db.query('DELETE FROM messages')
+    await db.query('DELETE FROM users')
 
-// describe("Auth Routes Test", function () {
+    const u1 = await User.register({
+      username: 'test1',
+      password: 'password',
+      first_name: 'Test1',
+      last_name: 'Testy1',
+      phone: '+14155550000'
+    })
+  })
 
-//   beforeEach(async function () {
-//     await db.query("DELETE FROM messages");
-//     await db.query("DELETE FROM users");
+  /** POST /auth/register => token  */
 
-//     let u1 = await User.register({
-//       username: "test1",
-//       password: "password",
-//       first_name: "Test1",
-//       last_name: "Testy1",
-//       phone: "+14155550000",
-//     });
-//   });
+  describe('POST /auth/register', function () {
+    test('can register', async function () {
+      const response = await request(app)
+        .post('/auth/register')
+        .send({
+          username: 'bob',
+          password: 'secret',
+          first_name: 'Bob',
+          last_name: 'Smith',
+          phone: '+14150000000'
+        })
 
-//   /** POST /auth/register => token  */
+      const token = response.body.token
+      expect(jwt.decode(token)).toEqual({
+        username: 'bob',
+        iat: expect.any(Number)
+      })
+    })
+  })
 
-//   describe("POST /auth/register", function () {
-//     test("can register", async function () {
-//       let response = await request(app)
-//         .post("/auth/register")
-//         .send({
-//           username: "bob",
-//           password: "secret",
-//           first_name: "Bob",
-//           last_name: "Smith",
-//           phone: "+14150000000"
-//         });
+  /** POST /auth/login => token  */
 
-//       let token = response.body.token;
-//       expect(jwt.decode(token)).toEqual({
-//         username: "bob",
-//         iat: expect.any(Number)
-//       });
-//     });
-//   });
+  describe('POST /auth/login', function () {
+    test('can login', async function () {
+      const response = await request(app)
+        .post('/auth/login')
+        .send({ username: 'test1', password: 'password' })
 
-//   /** POST /auth/login => token  */
+      const token = response.body.token
+      expect(jwt.decode(token)).toEqual({
+        username: 'test1',
+        iat: expect.any(Number)
+      })
+    })
 
-//   describe("POST /auth/login", function () {
-//     test("can login", async function () {
-//       let response = await request(app)
-//         .post("/auth/login")
-//         .send({ username: "test1", password: "password" });
+    test("won't login w/wrong password", async function () {
+      const response = await request(app)
+        .post('/auth/login')
+        .send({ username: 'test1', password: 'WRONG' })
+      expect(response.statusCode).toEqual(400)
+    })
 
-//       let token = response.body.token;
-//       expect(jwt.decode(token)).toEqual({
-//         username: "test1",
-//         iat: expect.any(Number)
-//       });
-//     });
+    // test("won't login w/wrong password", async function () {
+    //   const response = await request(app)
+    //     .post('/auth/login')
+    //     .send({ username: 'not-user', password: 'passsword' })
+    //   expect(response.statusCode).toEqual(400)
+    // })
+  })
+})
 
-//     test("won't login w/wrong password", async function () {
-//       let response = await request(app)
-//         .post("/auth/login")
-//         .send({ username: "test1", password: "WRONG" });
-//       expect(response.statusCode).toEqual(400);
-//     });
-
-//     test("won't login w/wrong password", async function () {
-//       let response = await request(app)
-//         .post("/auth/login")
-//         .send({ username: "not-user", password: "password" });
-//       expect(response.statusCode).toEqual(400);
-//     });
-//   });
-// });
-
-// afterAll(async function () {
-//   await db.end();
-// });
+afterAll(async function () {
+  await db.end()
+})

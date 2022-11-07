@@ -2,11 +2,11 @@
 
 import express from 'express'
 import cors from 'cors'
-import { authenticateJWT } from './middleware/auth'
-import { ExpressError } from './expressError'
-import { authRoutes } from './routes/auth'
-import { userRoutes } from './routes/users'
-import { messageRoutes } from './routes/messages'
+import { authenticateJWT } from './middleware/auth.js'
+import { ExpressError } from './ExpressError.js'
+import { router as authRoutes } from './routes/auth.js'
+import { router as userRoutes } from './routes/users.js'
+import { router as messageRoutes } from './routes/messages.js'
 const app = express()
 
 // allow both form-encoded and json body parsing
@@ -25,16 +25,16 @@ app.use('/messages', messageRoutes)
 
 /** 404 handler */
 
-app.use(function (req, res, next) {
+app.use((req, res, next) => {
   const err = new ExpressError('Not Found', 404)
   return next(err)
 })
 
 /** general error handler */
 
-app.use(function (err, req, res, next) {
+app.use((err, req, res, next) => {
   res.status(err.status || 500)
-  if (process.env.NODE_ENV != 'test') console.error(err.stack)
+  if (process.env.NODE_ENV !== 'test') console.error(err.stack)
 
   return res.json({
     error: err,
