@@ -1,5 +1,7 @@
 import express from 'express'
+import jsonschema from 'jsonschema'
 import { Book } from '../models/Book.js'
+import bookSchema from '../schemas/books.json' assert { type : 'json' }
 const router = new express.Router()
 
 /** GET / => {books: [book, ...]}  */
@@ -28,6 +30,11 @@ router.get('/:id', async (req, res, next) => {
 
 router.post('/', async (req, res, next) => {
   try {
+    const result = jsonschema.validate(req.body, bookSchema)
+    if (!result.valid) {
+      const errors = result.errors.map(error => error.stack)
+      throw new ExpressError(errors, 400)
+    }
     const book = await Book.create(req.body)
     return res.status(201).json({ book })
   } catch (err) {
@@ -39,6 +46,11 @@ router.post('/', async (req, res, next) => {
 
 router.put('/:isbn', async (req, res, next) => {
   try {
+    const result = jsonschema.validate(req.body, bookSchema)
+    if (!result.valid) {
+      const errors = result.errors.map(error => error.stack)
+      throw new ExpressError(errors, 400)
+    }
     const book = await Book.update(req.params.isbn, req.body)
     return res.json({ book })
   } catch (err) {
