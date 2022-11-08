@@ -1,0 +1,32 @@
+{
+  "name": "bookstore",
+  "version": "1.0.0",
+  "author": "",
+  "license": "ISC",
+  "keywords": [],
+  "description": "",
+  "type": "module",
+  "exports": "./server.js",
+  "scripts": {
+    "start": "nodemon --experimental-vm-modules --no-warnings ./server.js",
+    "test": "node --experimental-vm-modules --no-warnings ./node_modules/jest/bin/jest.js -i"
+  },
+  "nodemonConfig": {
+    "ignore": [
+      "./__tests__/*"
+    ],
+    "ext": "css,html,js,json,yaml",
+    "delay": 600
+  },
+  "devDependencies": {
+    "jest": "^29.3.0",
+    "nodemon": "^2.0.20",
+    "supertest": "^6.3.1"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "jsonschema": "^1.4.1",
+    "locus": "^2.0.4",
+    "pg": "^8.8.0"
+  }
+}
