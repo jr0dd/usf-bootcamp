@@ -19,6 +19,7 @@
     "delay": 600
   },
   "devDependencies": {
+    "@babel/plugin-syntax-import-assertions": "^7.20.0",
     "jest": "^29.3.0",
     "nodemon": "^2.0.20",
     "supertest": "^6.3.1"

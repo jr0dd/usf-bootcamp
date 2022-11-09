@@ -2,7 +2,7 @@
 
 import express from 'express'
 import { ExpressError } from './ExpressError.js'
-import { route as bookRoutes } from './routes/books.js'
+import { router as bookRoutes } from './routes/books.js'
 const app = express()
 
 app.use(express.json())

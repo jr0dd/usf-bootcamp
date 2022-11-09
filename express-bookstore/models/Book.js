@@ -20,9 +20,9 @@ class Book {
                 year
             FROM books 
             WHERE isbn = $1`, [isbn])
-
+    console.log(bookRes.rows)
     if (bookRes.rows.length === 0) {
-      throw new ExpressError({ message: `There is no book with an isbn '${isbn}`, status: 404 })
+      throw new ExpressError(`There is no book with an isbn ${isbn}`, 404)
     }
 
     return bookRes.rows[0]

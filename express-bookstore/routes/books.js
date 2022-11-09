@@ -1,8 +1,9 @@
 import express from 'express'
-import jsonschema from 'jsonschema'
+import { Validator } from 'jsonschema'
 import { Book } from '../models/Book.js'
 import bookSchema from '../schemas/books.json' assert { type : 'json' }
 const router = new express.Router()
+const json = new Validator()
 
 /** GET / => {books: [book, ...]}  */
 
@@ -15,11 +16,11 @@ router.get('/', async (req, res, next) => {
   }
 })
 
-/** GET /[id]  => {book: book} */
+/** GET /[isbn]  => {book: book} */
 
-router.get('/:id', async (req, res, next) => {
+router.get('/:isbn', async (req, res, next) => {
   try {
-    const book = await Book.findOne(req.params.id)
+    const book = await Book.findOne(req.params.isbn)
     return res.json({ book })
   } catch (err) {
     return next(err)
@@ -30,10 +31,12 @@ router.get('/:id', async (req, res, next) => {
 
 router.post('/', async (req, res, next) => {
   try {
-    const result = jsonschema.validate(req.body, bookSchema)
+    const result = json.validate(req.body, bookSchema, { allowUnknownAttributes: false })
     if (!result.valid) {
-      const errors = result.errors.map(error => error.stack)
-      throw new ExpressError(errors, 400)
+      return next({
+        status: 400,
+        error: result.errors.map(error => error.stack)
+      })
     }
     const book = await Book.create(req.body)
     return res.status(201).json({ book })
@@ -46,14 +49,19 @@ router.post('/', async (req, res, next) => {
 
 router.put('/:isbn', async (req, res, next) => {
   try {
-    const result = jsonschema.validate(req.body, bookSchema)
+    console.log(req.body)
+    const result = json.validate(req.body, bookSchema, { allowUnknownAttributes: false })
+    console.log(result.valid)
     if (!result.valid) {
-      const errors = result.errors.map(error => error.stack)
-      throw new ExpressError(errors, 400)
+      return next({
+        status: 400,
+        error: result.errors.map(error => error.stack)
+      })
     }
     const book = await Book.update(req.params.isbn, req.body)
     return res.json({ book })
   } catch (err) {
+    console.log(err.message)
     return next(err)
   }
 })
