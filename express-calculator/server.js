@@ -1,5 +1,5 @@
 import { app } from './app.js'
-import chalk from 'chalk'
+import chalk from 'chalk/index.js'
 
 const port = 3000
 

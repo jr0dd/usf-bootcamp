@@ -1,0 +1,26 @@
+@import url('https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;600;700&display=swap');
+
+* {
+  font-family: 'Rubik', sans-serif;
+}
+
+body {
+  margin: auto;
+  background-color: rgb(185, 184, 184);
+}
+
+.Eightball {
+  display: flex;
+  border-radius: 50%;
+  border: 2px solid white;
+  margin: 20px;
+  padding: 5px;
+  width: 300px;
+  height: 300px;
+  font-size: 20px;
+  font-weight: 600;
+  color: white;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
