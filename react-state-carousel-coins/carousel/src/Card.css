@@ -1,0 +1,17 @@
+.Card {
+  display: flex;
+  flex-direction: column;
+}
+
+.Card-title {
+  margin: 0 0 0.5em 0;
+}
+
+.Card-small {
+  margin-top: 0.5em;
+  font-style: italic;
+}
+
+.Card-image {
+  border-radius: 8px;
+}

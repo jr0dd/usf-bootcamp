@@ -1,0 +1,19 @@
+.Carousel-main {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.Carousel-main > i {
+  cursor: pointer;
+  margin: 10px;
+  color: #aaa;
+}
+
+.Carousel-main > i:hover {
+  color: black;
+}
+
+.bi {
+  font-size: 35px
+}
