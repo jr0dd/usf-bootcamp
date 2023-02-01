@@ -1,0 +1,34 @@
+.Deck {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.Deck-stack {
+  margin-top: 50px;
+  width: 250px;
+  height: 400px;
+}
+
+.Deck-button-row {
+  display: flex;
+  width: 250px;
+  justify-content: space-evenly;
+}
+
+.Deck-button {
+  font-size: 18px;
+  background: rgb(53, 52, 54);
+  color: rgb(229, 235, 235);
+  border: 0.5px solid white;
+  border-radius: 4px;
+  padding: 0.5em 1em 0.5em 1em;
+}
+
+.Deck-button:hover {
+  background-color: rgb(29, 28, 30);
+}
+
+.Deck-button:active {
+  background-color: rgb(28, 27, 29);
+}
