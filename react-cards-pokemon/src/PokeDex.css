@@ -1,0 +1,22 @@
+.PokeDex {
+  flex: 1;
+  background: url("https://st2.depositphotos.com/3213441/12022/v/450/depositphotos_120226584-stock-illustration-pokemon-go-pokeball-seamless-texture.jpg");
+  border-radius: 10px;
+  margin: 10px;
+}
+
+.PokeDex-buttons {
+  background-color: rgba(61, 125, 202, 0.9);
+  margin: 10px 30px;
+  border-radius: 10px;
+  padding: 10px 0;
+  color: white;
+}
+
+.PokeDex-buttons h3 {
+  margin: 0;
+}
+
+.PokeDex-card-area {
+  flex: 1;
+}

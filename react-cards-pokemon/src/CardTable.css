@@ -1,0 +1,17 @@
+.CardTable {
+  text-align: center;
+  flex-direction: column;
+  width: 100%;
+  display: flex;
+}
+
+.CardTable > main {
+  display: flex;
+  width: 100%;
+  flex: 1;
+}
+
+.Card {
+  cursor: pointer;
+  margin: 8px;
+}
