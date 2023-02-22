@@ -1,0 +1,9 @@
+.DogDetails {
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+}
+
+.DogDetails img {
+  width: 700px;
+}
