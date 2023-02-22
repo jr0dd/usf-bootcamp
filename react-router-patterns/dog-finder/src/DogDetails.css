@@ -6,4 +6,5 @@
 
 .DogDetails img {
   width: 700px;
+  align-self: center;
 }
