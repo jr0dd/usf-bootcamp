@@ -1,0 +1,12 @@
+{
+  "name": "dsa-trees",
+  "version": "1.0.0",
+  "description": "",
+  "main": "areCousins.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
