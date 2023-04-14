@@ -1,4 +1,4 @@
-const bubbleSort = require("./bubble")
+import bubbleSort from './bubble.js'
 
 describe('bubbleSort', function () {
   it('should exist', function () {

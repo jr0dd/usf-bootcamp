@@ -1,4 +1,4 @@
-const { merge, mergeSort } = require("./merge")
+import { merge, mergeSort } from './merge.js'
 
 describe('merge', function () {
   it('should exist', function () {
