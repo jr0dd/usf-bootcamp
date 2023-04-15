@@ -3,10 +3,14 @@
   "version": "1.0.0",
   "description": "",
   "main": "areCousins.js",
+  "type": "module",
   "scripts": {
-    "test": "jest"
+    "test": "node --experimental-vm-modules --no-warnings ./node_modules/jest/bin/jest.js"
   },
   "keywords": [],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "jest": "^29.5.0"
+  }
 }

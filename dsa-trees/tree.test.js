@@ -1,4 +1,4 @@
-const { Tree, TreeNode } = require("./tree");
+import { Tree, TreeNode } from './tree.js'
 
 let smallTree;
 let largeTree;

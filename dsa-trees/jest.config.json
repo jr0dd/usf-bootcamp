@@ -1,0 +1,6 @@
+{
+  "testEnvironment": "node",
+  "moduleNameMapper": {
+    "#(.*)": "<rootDir>/node_modules/$1"
+  }
+}
